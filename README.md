@@ -136,10 +136,16 @@ Example: `docker-compose exec sync sh -c "watch -path vendor/<company_name>/<mod
 * [Daniel Lozano](https://github.com/danielozano)
 * [Contributors](https://github.com/ModestCoders/magento2-dockergento/graphs/contributors)
 
-Licence
--------
+## Resources
+
+This project has been possible thanks to the following resources:
+
+* [docker-magento](https://github.com/markoshust/docker-magento) by [@markshust](https://twitter.com/markshust)
+* [Getting Started with Docker for Magento](https://nomadmage.com/product/getting-started-with-docker-for-magento-2/) by [@mostlymagic](https://twitter.com/mostlymagic)
+
+## Licence
+
 [GNU General Public License, version 3 (GPLv3)](http://opensource.org/licenses/gpl-3.0)
 
-Copyright
----------
+## Copyright
 (c) ModestCoders
