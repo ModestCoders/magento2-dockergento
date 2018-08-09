@@ -21,6 +21,12 @@ bin/magento setup:install \
   --use-rewrites=1
 ```
 
+## Developer mode
+
+```
+bin/magento deploy:mode:set developer
+```
+
 ## Purge all
 
 ```
