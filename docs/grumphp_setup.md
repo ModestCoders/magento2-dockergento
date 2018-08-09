@@ -4,7 +4,7 @@ If you want to use `grumphp` in your `git hooks`, the `grumphp` commands need to
 
 This project provides 2 custom `git hook` templates for that:
 
-* [See config/grumphp/hooks/docker](config/grumphp/hooks/docker)
+* [See config/grumphp/hooks/docker](../config/grumphp/hooks/docker)
 
 Use these custom template by adding this in your `composer.json`:
 
