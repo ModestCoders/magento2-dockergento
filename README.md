@@ -126,6 +126,12 @@ Example: `docker-compose exec sync sh -c "watch -path vendor/<company_name>/<mod
 	grunt watch
 	```
 
+## Grumphp
+
+If you want to use `grumphp` in your project, see how to set it up for docker here:
+
+* [Grumphp Setup](docs/grumphp_setup.md)
+
 ## ChangeLog
 
 [CHANGELOG.md](CHANGELOG.md)
