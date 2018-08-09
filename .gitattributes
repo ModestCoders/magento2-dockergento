@@ -1,0 +1,5 @@
+.gitattributes export-ignore
+.gitignore export-ignore
+README.md export-ignore
+CHANGELOG.md export-ignore
+/docs export-ignore

@@ -1,0 +1,74 @@
+version: "3"
+
+services:
+  app-volumes:
+    build: ./config/docker/image/app-volumes
+    volumes: &appvolumes
+      - .:/var/www/html:delegated
+      - ~/.composer:/var/www/.composer:delegated
+      - sockdata:/sock
+      - app-vendor:/var/www/html/vendor
+      - app-generated:/var/www/html/generated
+      - app-var:/var/www/html/var
+      - pub-static:/var/www/html/pub/static
+      - pub-media:/var/www/html/pub/media
+
+  app:
+    build: ./config/docker/image/nginx
+    ports:
+      - 80:8000
+    volumes: *appvolumes
+    depends_on:
+      - app-volumes
+      - phpfpm
+      - db
+      - sync
+
+  phpfpm:
+    image: markoshust/magento-php:7.0-fpm-3
+    volumes: *appvolumes
+    depends_on:
+      - app-volumes
+      - db
+
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: magento
+      MYSQL_USER: magento
+      MYSQL_PASSWORD: password
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  sync:
+    build: ./config/docker/image/sync
+    volumes:
+      - app-vendor:/var/www/html/vendor
+      - app-generated:/var/www/html/generated
+      - ./vendor:/sync/vendor
+      - ./generated:/sync/generated
+    environment:
+      - SYNC_SOURCE_BASE_PATH=/sync
+      - SYNC_DESTINATION_BASE_PATH=/var/www/html
+      - SYNC_MAX_INOTIFY_WATCHES=60000
+    privileged: true
+
+  node:
+      build: ./config/docker/image/nodejs-php
+      volumes: *appvolumes
+      environment:
+        - NPM_CONFIG_PREFIX=/home/node/.npm-global # To avoid permission error on npm install. It tries to save it at /var/www (root is the owner)
+      depends_on:
+        - app
+
+volumes:
+  dbdata:
+  sockdata:
+  app-vendor:
+  app-generated:
+  app-var:
+  pub-static:
+  pub-media:

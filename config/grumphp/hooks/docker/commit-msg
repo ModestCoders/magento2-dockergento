@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#
+# Run the hook command.
+# Note: this will be replaced by the real command during copy.
+#
+
+GIT_USER=$(git config user.name)
+GIT_EMAIL=$(git config user.email)
+COMMIT_MSG_FILE=$1
+
+# Fetch the GIT diff and format it as command input:
+DIFF=$(git -c diff.mnemonicprefix=false --no-pager diff -r -p -m -M --full-index --no-color --staged | cat)
+
+# Get docker-compose file path
+DOCKER_COMPOSE_DIR=$(PWD)
+if [[ ${DOCKER_COMPOSE_DIR} = *"/vendor/"* ]]; then
+  VENDOR_PARENT_DIR=$(echo ${DOCKER_COMPOSE_DIR} | awk -F"/vendor/" '{ print $1 }')
+  DOCKER_COMPOSE_DIR=${VENDOR_PARENT_DIR}/..
+fi
+DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_DIR}/docker-compose.yml
+
+# Run GrumPHP
+(cd "${HOOK_EXEC_PATH}" && printf "%s\n" "${DIFF}" | docker-compose --file ${DOCKER_COMPOSE_FILE} exec -T phpfpm $(HOOK_COMMAND) "--git-user=$GIT_USER" "--git-email=$GIT_EMAIL" "$COMMIT_MSG_FILE")
