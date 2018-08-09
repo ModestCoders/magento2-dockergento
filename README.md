@@ -40,22 +40,23 @@ As a work-around for this behavior, you can put vendor or third-party library di
 
 ## Preconditions
 
-0. Configure your docker `File Sharing` settings
+1. Configure your docker `File Sharing` settings
 
 	![File Sharing Configuration](docs/img/file_sharing.png)
 
-0. Optionally apply these performance tweaks
+2. Optionally apply these performance tweaks
 
 	* [http://markshust.com/2018/01/30/performance-tuning-docker-mac](http://markshust.com/2018/01/30/performance-tuning-docker-mac)
 
 ## Installation
 
-0. Copy this docker configuration repository in your project
+1. Copy this docker configuration repository in your project
 
-	`git archive --format=tar --remote=https://github.com/ModestCoders/magento2-dockergento.git HEAD | tar -xf -`
+	```
+	git archive --format=tar --remote=https://github.com/ModestCoders/magento2-dockergento.git HEAD | tar -xf -
+	```
 
-0. Edit your magento paths or nginx configuration if needed
-
+2. Edit your magento paths or nginx configuration if needed
 
 ## Usage
 
@@ -102,21 +103,21 @@ Example: `docker-compose exec sync "watch -path vendor/<company_name>/<module_na
 
 ### Frontend
 
-0. Start node container
+1. Start node container
 
 	```
 	docker-compose up node
 	```
 
-0. NPM config setup (Only first time)
+2. NPM config setup (Only first time)
 
 	```
 	docker-compose exec node bash
-	cd magento && cp package.json.sample package.json && cp Gruntfile.js.sample Gruntfile.js
+	cp package.json.sample package.json && cp Gruntfile.js.sample Gruntfile.js
 	npm install
 	```
 
-0. Grunt watch
+3. Grunt watch
 
 	```
 	docker-compose exec node bash
