@@ -54,7 +54,7 @@ As a work-around for this behavior, you can put vendor or third-party library di
 1. Copy this docker configuration repository in your project
 
 	```
-	git archive --format=tar --remote=https://github.com/ModestCoders/magento2-dockergento.git HEAD | tar -xf -
+	curl -L https://api.github.com/repos/ModestCoders/magento2-dockergento/tarball | tar xz --strip=1
 	```
 
 2. Edit your magento paths or nginx configuration if needed
