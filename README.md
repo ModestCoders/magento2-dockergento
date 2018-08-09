@@ -23,7 +23,8 @@ This is a docker setup optimised for Magento2 on Mac. It has same performance as
 
 <details>
 <summary>Docker for Mac performance issues</summary>
-From [docker for mac documentation:](https://docs.docker.com/docker-for-mac/troubleshoot/#known-issues)
+
+From docker for mac documentation: https://docs.docker.com/docker-for-mac/troubleshoot/#known-issues
 
 There are a number of issues with the performance of directories bind-mounted with osxfs. In particular, writes of small blocks, and traversals of large directories are currently slow. Additionally, containers that perform large numbers of directory operations, such as repeated scans of large directory trees, may suffer from poor performance. Applications that behave in this way include:
 
