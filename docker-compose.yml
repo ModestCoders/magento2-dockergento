@@ -39,7 +39,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: magento
       MYSQL_USER: magento
-      MYSQL_PASSWORD: password
+      MYSQL_PASSWORD: magento
     volumes:
       - dbdata:/var/lib/mysql
 
