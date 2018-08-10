@@ -69,21 +69,9 @@ As a work-around for this behavior, you can put vendor or third-party library di
 
 ### Video Demos
 
-<div style="float:left;margin-right:30px;" >
-<a style="display:block" href="https://youtu.be/rtr8waq7DHo" target="_blank">
-  <img src="docs/img/setup_install_video.png" alt="Dockergento install using setup install" width="240px" height="180px" border="10" />
+<a href="https://www.youtube.com/watch?v=rtr8waq7DHo&list=PLBt8dizedSZBhcjTL8SM2PS2HEy0mFf5F" target="_blank">
+  <img src="docs/img/wizard_install_video.png" alt="Dockergento video demos" width="240px" height="180px" border="10" />
 </a>
-Install with setup:install
-</div>
-
-<div style="float:left">
-<a style="display:block" href="https://youtu.be/xxo42IHU3R0" target="_blank">
-  <img src="docs/img/wizard_install_video.png" alt="Dockergento install using wizard" width="240px" height="180px" border="10" />
-</a>
-Install with wizard
-</div>
-
-<div style="clear:left;"></div>
 
 ### Start Application
 
