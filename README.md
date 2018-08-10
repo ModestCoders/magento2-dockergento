@@ -69,17 +69,21 @@ As a work-around for this behavior, you can put vendor or third-party library di
 
 ### Video Demos
 
-<a href="https://youtu.be/rtr8waq7DHo" target="_blank">
-  <img src="docs/img/setup_install_video.png" alt="Dockergento install using setup install command" width="240" height="180" border="10" />
+<div style="float:left;margin-right:30px;" >
+<a style="display:block" href="https://youtu.be/rtr8waq7DHo" target="_blank">
+  <img src="docs/img/setup_install_video.png" alt="Dockergento install using setup install" width="240px" height="180px" border="10" />
 </a>
-
 Install with setup:install
+</div>
 
-<a href="https://youtu.be/xxo42IHU3R0" target="_blank">
-  <img src="docs/img/wizard_install_video.png" alt="Dockergento install using wizard" width="240" height="180" border="10" />
+<div style="float:left">
+<a style="display:block" href="https://youtu.be/xxo42IHU3R0" target="_blank">
+  <img src="docs/img/wizard_install_video.png" alt="Dockergento install using wizard" width="240px" height="180px" border="10" />
 </a>
-
 Install with wizard
+</div>
+
+<div style="clear:left;"></div>
 
 ### Start Application
 
@@ -120,7 +124,7 @@ This option is only recommended if you are implementing code in a vendor module.
 docker-compose exec unison watch -path <path_to_sync>
 ```
 
-Example: `docker-compose exec unison watch -path vendor/<company_name>/<module_name>` 
+Example: `docker-compose exec unison watch -path vendor/<company_name>/<module_name>`
 
 ### Frontend
 
