@@ -3,7 +3,7 @@
 ## Magento Setup
 
 ```
-bin/magento setup:install \
+docker-compose exec phpfpm bin/magento setup:install \
   --db-host=db \
   --db-name=magento \
   --db-user=magento \
@@ -24,11 +24,11 @@ bin/magento setup:install \
 ## Developer mode
 
 ```
-bin/magento deploy:mode:set developer
+docker-compose exec phpfpm bin/magento deploy:mode:set developer
 ```
 
 ## Purge all
 
 ```
-rm -rf var/cache/* generated/* pub/static/* var/view_preprocessed/* var/page_cache/* var/di/*
+docker-compose exec phpfpm sh -c "rm -rf var/cache/* generated/* pub/static/* var/view_preprocessed/* var/page_cache/*"
 ```
