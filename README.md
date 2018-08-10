@@ -5,7 +5,7 @@
 ## Performance Comparison
 
 <a href="https://youtu.be/sGmXc_lzTNM" target="_blank">
-  <img src="docs/img/dockergento_speed_video.png" alt="Dockergento speed comparison" width="240" height="180" border="10" />
+  <img src="docs/img/comparison_speed_video.png" alt="Dockergento speed comparison" width="240" height="180" border="10" />
 </a>
 
 ## Motivation
@@ -45,8 +45,6 @@ As a work-around for this behavior, you can put vendor or third-party library di
 
 </details>
 
-
-
 ## Preconditions
 
 1. Configure your docker `File Sharing` settings
@@ -68,6 +66,18 @@ As a work-around for this behavior, you can put vendor or third-party library di
 2. Edit your magento paths or nginx configuration if needed
 
 ## Usage
+
+### Video Demos
+
+<a href="https://youtu.be/rtr8waq7DHo" target="_blank">
+  <img src="docs/img/setup_install_video.png" alt="Dockergento install using setup install command" width="240" height="180" border="10" />
+  Install with setup:install
+</a>
+
+<a href="https://youtu.be/xxo42IHU3R0" target="_blank">
+  <img src="docs/img/wizard_install_video.png" alt="Dockergento install using wizard" width="240" height="180" border="10" />
+  Install with wizard
+</a>
 
 ### Start Application
 
