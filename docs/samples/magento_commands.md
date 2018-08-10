@@ -13,7 +13,7 @@ docker-compose exec phpfpm bin/magento setup:install \
   --admin-lastname=Smith \
   --admin-email=john.smith@gmail.com \
   --admin-user=john.smith \
-  --backend-frontname=admin
+  --backend-frontname=admin \
   --admin-password=password123 \
   --language=en_US \
   --currency=USD \
