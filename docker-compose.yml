@@ -22,7 +22,7 @@ services:
       - app-volumes
       - phpfpm
       - db
-      - sync
+      - unison
 
   phpfpm:
     image: markoshust/magento-php:7.0-fpm-3
