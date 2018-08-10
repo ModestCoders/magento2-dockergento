@@ -43,8 +43,8 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
 
-  sync:
-    build: ./config/docker/image/sync
+  unison:
+    build: ./config/docker/image/unison
     volumes:
       - app-vendor:/var/www/html/vendor
       - app-generated:/var/www/html/generated
