@@ -71,13 +71,15 @@ As a work-around for this behavior, you can put vendor or third-party library di
 
 <a href="https://youtu.be/rtr8waq7DHo" target="_blank">
   <img src="docs/img/setup_install_video.png" alt="Dockergento install using setup install command" width="240" height="180" border="10" />
-  Install with setup:install
 </a>
+
+Install with setup:install
 
 <a href="https://youtu.be/xxo42IHU3R0" target="_blank">
   <img src="docs/img/wizard_install_video.png" alt="Dockergento install using wizard" width="240" height="180" border="10" />
-  Install with wizard
 </a>
+
+Install with wizard
 
 ### Start Application
 
