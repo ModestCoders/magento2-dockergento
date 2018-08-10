@@ -119,8 +119,8 @@ This option is only recommended if you are implementing code in a vendor module.
 ```
 docker-compose exec unison watch -path <path_to_sync>
 ```
-``
-Example: `docker-compose exec unison watch -path vendor/<company_name>/<module_name>
+
+Example: `docker-compose exec unison watch -path vendor/<company_name>/<module_name>` 
 
 ### Frontend
 
