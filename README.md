@@ -2,6 +2,12 @@
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](juan.jalogut@gmail.com)
 
+## Performance Comparison
+
+<a href="https://youtu.be/sGmXc_lzTNM" target="_blank">
+  <img src="docs/images/dockergento_speed_video.png" alt="Dockergento speed comparison" width="240" height="180" border="10" />
+</a>
+
 ## Motivation
 
 This project aims to offer a good performance solution for MAC users that want to use docker on development.
@@ -38,6 +44,8 @@ PHP applications that use Composer to install dependencies in a vendor folder
 As a work-around for this behavior, you can put vendor or third-party library directories in Docker volumes, perform temporary file system operations outside of osxfs mounts, and use third-party tools like Unison or rsync to synchronize between container directories and bind-mounted directories. We are actively working on osxfs performance using a number of different techniques. To learn more, see the topic on Performance issues, solutions, and roadmap.
 
 </details>
+
+
 
 ## Preconditions
 
