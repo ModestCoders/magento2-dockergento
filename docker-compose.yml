@@ -27,6 +27,8 @@ services:
   phpfpm:
     image: markoshust/magento-php:7.0-fpm-3
     volumes: *appvolumes
+    environment:
+      PHP_IDE_CONFIG: serverName=localhost
     depends_on:
       - app-volumes
       - db

@@ -138,15 +138,18 @@ Example: `docker-compose exec unison watch -path vendor/<company_name>/<module_n
 	grunt watch
 	```
 
-## Grumphp
+## Xdebug
 
-If you want to use `grumphp` in your project, see how to set it up for docker here:
+* [Xdebug enable/disable](docs/xdebug.md)
+* [PHPStorm + Xdebug Setup](docs/xdebug_phpstorm.md)
+
+## Grumphp
 
 * [Grumphp Setup](docs/grumphp_setup.md)
 
 ## ChangeLog
 
-[CHANGELOG.md](CHANGELOG.md)
+* [CHANGELOG.md](CHANGELOG.md)
 
 ## Developers
 
