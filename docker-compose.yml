@@ -59,7 +59,7 @@ services:
     privileged: true
 
   node:
-      build: ./config/docker/image/nodejs-php
+      image: modestcoders/node-php:node8-php7.0
       volumes: *appvolumes
       environment:
         - NPM_CONFIG_PREFIX=/home/node/.npm-global # To avoid permission error on npm install. It tries to save it at /var/www (root is the owner)
