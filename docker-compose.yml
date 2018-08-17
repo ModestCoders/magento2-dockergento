@@ -25,7 +25,7 @@ services:
       - unison
 
   phpfpm:
-    image: markoshust/magento-php:7.0-fpm-3
+    image: markoshust/magento-php:7.1-fpm-3
     volumes: *appvolumes
     environment:
       PHP_IDE_CONFIG: serverName=localhost
@@ -59,7 +59,7 @@ services:
     privileged: true
 
   node:
-      image: modestcoders/node-php:node8-php7.0
+      image: modestcoders/node-php:node8-php7.1
       volumes: *appvolumes
       environment:
         - NPM_CONFIG_PREFIX=/home/node/.npm-global # To avoid permission error on npm install. It tries to save it at /var/www (root is the owner)
