@@ -46,7 +46,7 @@ services:
       - dbdata:/var/lib/mysql
 
   unison:
-    build: ./config/docker/image/unison
+    image: modestcoders/unison:2.51.2
     volumes:
       - app-vendor:/var/www/html/vendor
       - app-generated:/var/www/html/generated
