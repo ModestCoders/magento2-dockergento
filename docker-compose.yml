@@ -32,6 +32,7 @@ services:
     depends_on:
       - app-volumes
       - db
+      - unison
 
   db:
     image: mysql:5.7
@@ -56,6 +57,8 @@ services:
       - SYNC_SOURCE_BASE_PATH=/sync
       - SYNC_DESTINATION_BASE_PATH=/var/www/html
       - SYNC_MAX_INOTIFY_WATCHES=60000
+    depends_on:
+      - app-volumes
     privileged: true
 
   node:
