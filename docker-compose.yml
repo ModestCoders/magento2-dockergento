@@ -20,10 +20,7 @@ services:
       - 80:8000
     volumes: *appvolumes
     depends_on:
-      - app-volumes
       - phpfpm
-      - db
-      - unison
 
   phpfpm:
     build: ./config/docker/image/phpfpm
@@ -33,7 +30,6 @@ services:
     depends_on:
       - app-volumes
       - db
-      - unison
 
   db:
     image: mysql:5.7
@@ -63,12 +59,12 @@ services:
     privileged: true
 
   node:
-      build: ./config/docker/image/node
-      volumes: *appvolumes
-      environment:
-        - NPM_CONFIG_PREFIX=/home/app/.npm-global # To avoid permission error on npm install. It tries to save it at /var/www (root is the owner)
-      depends_on:
-        - app
+    build: ./config/docker/image/node
+    volumes: *appvolumes
+    environment:
+      - NPM_CONFIG_PREFIX=/home/app/.npm-global # To avoid permission error on npm install. It tries to save it at /var/www (root is the owner)
+    depends_on:
+      - app-volumes
 
 volumes:
   dbdata:
