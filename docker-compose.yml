@@ -25,13 +25,14 @@ services:
       - unison
 
   phpfpm:
-    image: markoshust/magento-php:7.0-fpm-3
+    image: markoshust/magento-php:7.1-fpm-3
     volumes: *appvolumes
     environment:
       PHP_IDE_CONFIG: serverName=localhost
     depends_on:
       - app-volumes
       - db
+      - unison
 
   db:
     image: mysql:5.7
@@ -46,7 +47,7 @@ services:
       - dbdata:/var/lib/mysql
 
   unison:
-    build: ./config/docker/image/unison
+    image: modestcoders/unison:2.51.2
     volumes:
       - app-vendor:/var/www/html/vendor
       - app-generated:/var/www/html/generated
@@ -56,10 +57,12 @@ services:
       - SYNC_SOURCE_BASE_PATH=/sync
       - SYNC_DESTINATION_BASE_PATH=/var/www/html
       - SYNC_MAX_INOTIFY_WATCHES=60000
+    depends_on:
+      - app-volumes
     privileged: true
 
   node:
-      image: modestcoders/node-php:node8-php7.0
+      image: modestcoders/node-php:node8-php7.1
       volumes: *appvolumes
       environment:
         - NPM_CONFIG_PREFIX=/home/node/.npm-global # To avoid permission error on npm install. It tries to save it at /var/www (root is the owner)
