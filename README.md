@@ -116,13 +116,7 @@ Example: `docker-compose run --rm unison watch -path vendor/<company_name>/<modu
 
 ### Frontend
 
-1. Start node container
-
-	```
-	docker-compose up node
-	```
-
-2. NPM config setup (Only first time)
+1. NPM config setup (Only first time)
 
 	```
 	docker-compose run --rm node sh -c "cp -n package.json.sample package.json \
@@ -130,7 +124,7 @@ Example: `docker-compose run --rm unison watch -path vendor/<company_name>/<modu
         && npm install"
 	```
 
-3. Grunt watch
+2. Grunt watch
 
 	```
 	docker-compose run --rm node sh "grunt exec:<theme>"
