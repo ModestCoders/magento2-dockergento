@@ -12,6 +12,7 @@ services:
       - app-var:/var/www/html/var
       - pub-static:/var/www/html/pub/static
       - pub-media:/var/www/html/pub/media
+      - integration-test-sandbox:/var/www/html/dev/tests/integration/tmp
 
   app:
     build: ./config/docker/image/nginx
@@ -19,20 +20,16 @@ services:
       - 80:8000
     volumes: *appvolumes
     depends_on:
-      - app-volumes
       - phpfpm
-      - db
-      - unison
 
   phpfpm:
-    image: markoshust/magento-php:7.1-fpm-3
+    build: ./config/docker/image/phpfpm
     volumes: *appvolumes
     environment:
       PHP_IDE_CONFIG: serverName=localhost
     depends_on:
       - app-volumes
       - db
-      - unison
 
   db:
     image: mysql:5.7
@@ -62,12 +59,12 @@ services:
     privileged: true
 
   node:
-      image: modestcoders/node-php:node8-php7.1
-      volumes: *appvolumes
-      environment:
-        - NPM_CONFIG_PREFIX=/home/node/.npm-global # To avoid permission error on npm install. It tries to save it at /var/www (root is the owner)
-      depends_on:
-        - app
+    build: ./config/docker/image/node
+    volumes: *appvolumes
+    environment:
+      - NPM_CONFIG_PREFIX=/home/app/.npm-global # To avoid permission error on npm install. It tries to save it at /var/www (root is the owner)
+    depends_on:
+      - app-volumes
 
 volumes:
   dbdata:
@@ -77,3 +74,4 @@ volumes:
   app-var:
   pub-static:
   pub-media:
+  integration-test-sandbox:

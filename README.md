@@ -99,7 +99,7 @@ There are 2 options to sync the volumes `vendor` and `generated`
 This option must be used most of the times. You should only need to sync `vendor` and `generated` from time to time for debugging purposes
 
 ```
-docker-compose exec unison sync -path <path_to_sync>
+docker-compose run --rm unison sync -path <path_to_sync>
 ```
 
 **NOTE:** `<path_to_sync>` should be `vendor` or `generated`. For faster and more specific syncs, you can include the subfolder path inside `vendor` like `sync -path vendor/<company_name>`.
@@ -109,33 +109,26 @@ docker-compose exec unison sync -path <path_to_sync>
 This option is only recommended if you are implementing code in a vendor module.
 
 ```
-docker-compose exec unison watch -path <path_to_sync>
+docker-compose run --rm unison watch -path <path_to_sync>
 ```
 
-Example: `docker-compose exec unison watch -path vendor/<company_name>/<module_name>`
+Example: `docker-compose run --rm unison watch -path vendor/<company_name>/<module_name>`
 
 ### Frontend
 
-1. Start node container
+1. NPM config setup (Only first time)
 
 	```
-	docker-compose up node
+	docker-compose run --rm node sh -c "cp -n package.json.sample package.json \
+        && cp -n Gruntfile.js.sample Gruntfile.js \
+        && npm install"
 	```
 
-2. NPM config setup (Only first time)
+2. Grunt watch
 
 	```
-	docker-compose exec node bash
-	cp package.json.sample package.json && cp Gruntfile.js.sample Gruntfile.js
-	npm install
-	```
-
-3. Grunt watch
-
-	```
-	docker-compose exec node bash
-	grunt exec:<theme>
-	grunt watch
+	docker-compose run --rm node sh "grunt exec:<theme>"
+	docker-compose run --rm node sh "grunt watch"
 	```
 
 ## Xdebug
