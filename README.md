@@ -127,8 +127,8 @@ Example: `docker-compose run --rm unison watch -path vendor/<company_name>/<modu
 2. Grunt watch
 
 	```
-	docker-compose run --rm node sh "grunt exec:<theme>"
-	docker-compose run --rm node sh "grunt watch"
+	docker-compose run --rm node sh -c "grunt exec:<theme>"
+	docker-compose run --rm node sh -c "grunt watch"
 	```
 
 ## Xdebug
