@@ -10,25 +10,15 @@
 
 ## Motivation
 
-This project aims to offer a good performance solution for MAC users that want to use docker on development.
-This is a docker setup optimised for Magento2 on Mac. It has same performance as Linux or local setups.
+This project aims to offer a good performance solution for Mac users that want to use docker on development.
+This is a docker setup optimised for Magento 2 on Mac. It has same performance as Linux or local setups.
 
 ## Main Features
 
-### Overcome Docker for Mac performance issues on Magento 2
-
-* Use docker volumens for following directories:
-
-	* vendor
-	* generated
-	* var
-	* pub/static
-	* pub/media
-
-* Sincronise `vendor` and `generated` using a specific `sync` container. See [Sync vendor & generated section](#sync)
+### Overcome Docker for Mac performance issue
 
 <details>
-<summary>Docker for Mac performance issues</summary>
+<summary>Open to read issue explanation</summary>
 
 From docker for mac documentation: https://docs.docker.com/docker-for-mac/troubleshoot/#known-issues
 
@@ -45,13 +35,55 @@ As a work-around for this behavior, you can put vendor or third-party library di
 
 </details>
 
+**Solution:**
+
+* Use docker volumens for following directories:
+
+	* vendor
+	* generated
+	* var
+	* pub/static
+	* pub/media
+
+* Sincronise `vendor` and `generated` volumens using a specific `unison` container. 
+
+	<details>
+	<summary>How to sync volumes between host and container</summary>
+	
+	See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.
+	
+	There are 2 options to sync the volumes `vendor` and `generated`
+
+	**Option 1: One time sync**
+
+	This option must be used most of the times. You should only need to sync `vendor` and `generated` from time to time for debugging purposes
+
+	```
+	docker-compose run --rm unison sync -path vendor -path generated
+	```
+
+	NOTE: For faster and more specific syncs, you can specify a subfolder like `sync -path vendor/<company_name>`.
+
+	**Option 2: Watch**
+
+	This option is only recommended if you are implementing code in a vendor module.
+
+	```
+	docker-compose run --rm unison watch -path vendor/<company_name>/<module_name>`
+	```	
+	
+	</details>
+	
+
 ## Preconditions
 
 1. Configure your docker `File Sharing` settings
 
 	![File Sharing Configuration](docs/img/file_sharing.png)
+	
+	NOTE: You do not need to have `Composer` installed. You only need to create a `.composer` folder in your computer, so it can be used by containers to cache composer dependecies instead of downloading them everytime.
 
-2. Optionally apply these performance tweaks
+2. Optionally you can also apply these performance tweaks
 
 	* [http://markshust.com/2018/01/30/performance-tuning-docker-mac](http://markshust.com/2018/01/30/performance-tuning-docker-mac)
 
@@ -60,10 +92,91 @@ As a work-around for this behavior, you can put vendor or third-party library di
 1. Copy this docker configuration repository in your project
 
 	```
+	cd <path_to_your_project>
 	curl -L https://api.github.com/repos/ModestCoders/magento2-dockergento/tarball | tar xz --strip=1
 	```
 
-2. Edit your magento paths or nginx configuration if needed
+2. Edit binded paths or nginx configuration if needed
+
+	<details>
+	<summary>More info about custom configurations</summary>
+	
+	**Binded Paths:**
+	
+	If you install magento code in a different folder than your project root, you might need to replace `<magento_dir>` on the following files: 
+	
+	* `docker-compose.yml`
+	
+	```
+	app-volumes:
+		build: ./config/docker/image/app-volumes
+		volumes: &appvolumes
+  			- .:/var/www/html:delegated
+  			- ~/.composer:/var/www/.composer:delegated
+  			- sockdata:/sock
+  			- app-vendor:/var/www/html/<magento_dir>/vendor
+  			- app-generated:/var/www/html/<magento_dir>/generated
+  			- app-var:/var/www/html/<magento_dir>/var
+  			- pub-static:/var/www/html/<magento_dir>/pub/static
+  			- pub-media:/var/www/html/<magento_dir>/pub/media
+  			- integration-test-sandbox:/var/www/html/<magento_dir>/dev/tests/integration/tmp
+
+	unison:
+		image: modestcoders/unison:2.51.2
+		volumes:
+  			- app-vendor:/var/www/html/<magento_dir>/vendor
+  			- app-generated:/var/www/html/<magento_dir>/generated
+  			- ./vendor:/sync/vendor
+  			- ./generated:/sync/generated
+		environment:
+  			- SYNC_SOURCE_BASE_PATH=/sync
+  			- SYNC_DESTINATION_BASE_PATH=/var/www/html/<magento_dir>
+  			- SYNC_MAX_INOTIFY_WATCHES=60000
+	```
+	
+	* `config/docker/image/app-volumes/Dockerfile`
+	
+	```
+	RUN mkdir -p /var/www/html/<magento_dir>/vendor \
+		/var/www/html/<magento_dir>/generated \
+		/var/www/html/<magento_dir>/var \
+		/var/www/html/<magento_dir>/pub/static \
+		/var/www/html/<magento_dir>/pub/media \
+		/var/www/html/<magento_dir>/dev/tests/integration/tmp \
+		&& chown -R 1000:1000 /var/www/html/<magento_dir>
+	```	
+	
+	* `config/docker/image/nginx/conf/default.conf`
+	
+	```
+	server {
+		# ...
+		set $MAGE_ROOT /var/www/html/<magento_dir>;
+		# ...
+	```
+	
+	**Nginx Multi-store:**
+	
+	If you have a multi-store magento, you need to add your website codes to the ngnix configuration as follows:  
+	
+	* `config/docker/image/nginx/conf/default.conf`
+	
+	```
+	# WEBSITES MAPPING
+	map $http_host $MAGE_RUN_CODE {
+
+		default    base;
+		## For multi-store configuration add here your domain-website codes
+		dominio-es.lo    es;
+		dominio-ch.lo    ch;
+		dominio-de.lo    de;
+	}
+	```
+	</details>
+
+3. (Recommended) Install [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console)
+
+	It is recommended to use this bash script tool for easier development workflow. See [dockergento workflow](#workflow) 
 
 ## Usage
 
@@ -82,58 +195,14 @@ sudo vim /etc/hosts
 // Add -> 127.0.0.1 <your-domain>
 ```
 
-### Execute Magento commands
+### <a name="workflow"></a> Workflow
 
-Magento commands must be executed inside the `php` container
+See detailed documentation about development workflow with dockergento
 
-```
-docker-compose exec phpfpm bash
-```
-
-### <a name="sync"></a> Sync vendor and generated
-
-There are 2 options to sync the volumes `vendor` and `generated`
-
-#### Option 1: One time sync
-
-This option must be used most of the times. You should only need to sync `vendor` and `generated` from time to time for debugging purposes
-
-```
-docker-compose run --rm unison sync -path <path_to_sync>
-```
-
-**NOTE:** `<path_to_sync>` should be `vendor` or `generated`. For faster and more specific syncs, you can include the subfolder path inside `vendor` like `sync -path vendor/<company_name>`.
-
-#### Option 2: Watch
-
-This option is only recommended if you are implementing code in a vendor module.
-
-```
-docker-compose run --rm unison watch -path <path_to_sync>
-```
-
-Example: `docker-compose run --rm unison watch -path vendor/<company_name>/<module_name>`
-
-### Frontend
-
-1. NPM config setup (Only first time)
-
-	```
-	docker-compose run --rm node sh -c "cp -n package.json.sample package.json \
-        && cp -n Gruntfile.js.sample Gruntfile.js \
-        && npm install"
-	```
-
-2. Grunt watch
-
-	```
-	docker-compose run --rm node sh -c "grunt exec:<theme>"
-	docker-compose run --rm node sh -c "grunt watch"
-	```
+* `magento2-dockergento-console` > [Development Workflow](https://github.com/ModestCoders/magento2-dockergento-console/blob/master/docs/workflow.md)
 
 ## Xdebug
 
-* [Xdebug enable/disable](docs/xdebug.md)
 * [PHPStorm + Xdebug Setup](docs/xdebug_phpstorm.md)
 
 ## Grumphp
