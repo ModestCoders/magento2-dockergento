@@ -11,6 +11,24 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+
+## [1.2] - 30-08-2018
+### Added
+
+* Development workflow documentation
+* Troubleshooting section with info about broken volumes
+
+### Changed
+
+* Use updated node image with right user `app` by default
+* Use `modescoders/php` image
+* Xdebug uses now `xdebug.remote_host=host.docker.internal` as it is defined on `modescoders/php` images
+
+### Removed
+
+* Remove not needed `NPM_CONFIG_PREFIX` because default user is now app
+* Remove phpstorm xdebug `DBGp` configuration step that is no longer needed
+
 ## [1.1] - 24-08-2018
 ### Changed
 
