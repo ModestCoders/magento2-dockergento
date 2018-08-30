@@ -12,7 +12,7 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 ### Removed
 
 
-## [1.2] - 30-08-2018
+## [1.2.0] - 30-08-2018
 ### Added
 
 * Development workflow documentation
