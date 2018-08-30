@@ -1,6 +1,12 @@
 # PHPStorm + Xdebug Setup
 
-## Configuration Steps
+## Enable xdebug
+
+`xdebug` needs to be enabled inside the `phpfpm` container. You can do that as explained in `magento2-dockergento-console`
+
+* workflow -> [enable xdebug](https://github.com/ModestCoders/magento2-dockergento-console/tree/master/docs/workflow#xdebug)
+
+## PHPStorm configuration
 
 1. `Build, Execution, Deployment > Docker`
 
@@ -25,13 +31,7 @@
 
 	![debug_port](img/debug_port.png)
 
-4. `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug > DBGp Proxy`
-
-	* Host must match with the `REMOTE_HOST_IP` set on the [Xdebug configuration](xdebug.md)
-
-	![debug_dbgp](img/debug_dbgp.png)
-
-5. `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers`
+4. `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers`
 
 	* Name: `localhost` (Same as `PHP_IDE_CONFIG` in `docker-compose.yml`)
 	* Port: 8000
@@ -39,14 +39,13 @@
 
 	![debug_server_mapping](img/debug_server_mapping.png)
 	
-6. Start Listening for PHP Debug connections
+5. Start Listening for PHP Debug connections
 
 	**NOTE**: Be sure to activate that only after setting the right debug port. Changes in Debug port are ignored once the listener has started.
 	
 	![PHPStorm Debug Listener](img/phpstorm_debug_listener.png)
 
-	
-7. Install and enable `Xdebug helper` plugin in Chrome
+6. Install and enable `Xdebug helper` plugin in Chrome
 
 	* [https://chrome.google.com/webstore/detail/xdebug-helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc)
 	

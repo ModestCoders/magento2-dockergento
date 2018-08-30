@@ -23,7 +23,7 @@ services:
       - phpfpm
 
   phpfpm:
-    build: ./config/docker/image/phpfpm
+    image: modestcoders/php:7.1-fpm
     volumes: *appvolumes
     environment:
       PHP_IDE_CONFIG: serverName=localhost
@@ -61,8 +61,6 @@ services:
   node:
     image: modestcoders/node-php:node8-php7.1
     volumes: *appvolumes
-    environment:
-      - NPM_CONFIG_PREFIX=/home/app/.npm-global # To avoid permission error on npm install. It tries to save it at /var/www (root is the owner)
     depends_on:
       - app-volumes
 
