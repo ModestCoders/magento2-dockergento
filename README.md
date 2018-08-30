@@ -37,7 +37,7 @@ As a work-around for this behavior, you can put vendor or third-party library di
 
 **Solution:**
 
-* Use docker volumens for following directories:
+* Use docker volumes for following directories:
 
 	* vendor
 	* generated
@@ -45,7 +45,7 @@ As a work-around for this behavior, you can put vendor or third-party library di
 	* pub/static
 	* pub/media
 
-* Sincronise `vendor` and `generated` volumens using a specific `unison` container. 
+* Synchronise `vendor` and `generated` volumes using a specific `unison` container. 
 
 	<details>
 	<summary>How to sync volumes between host and container</summary>
