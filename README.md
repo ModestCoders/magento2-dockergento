@@ -24,12 +24,12 @@ From docker for mac documentation: https://docs.docker.com/docker-for-mac/troubl
 
 There are a number of issues with the performance of directories bind-mounted with osxfs. In particular, writes of small blocks, and traversals of large directories are currently slow. Additionally, containers that perform large numbers of directory operations, such as repeated scans of large directory trees, may suffer from poor performance. Applications that behave in this way include:
 
-rake
-ember build
-Symfony
-Magento
-Zend Framework
-PHP applications that use Composer to install dependencies in a vendor folder
+* rake
+* ember build
+* Symfony
+* Magento
+* Zend Framework
+* PHP applications that use Composer to install dependencies in a vendor folder
 
 As a work-around for this behavior, you can put vendor or third-party library directories in Docker volumes, perform temporary file system operations outside of osxfs mounts, and use third-party tools like Unison or rsync to synchronize between container directories and bind-mounted directories. We are actively working on osxfs performance using a number of different techniques. To learn more, see the topic on Performance issues, solutions, and roadmap.
 
