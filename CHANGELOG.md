@@ -11,7 +11,7 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
-## [next-version] - 00-00-2018
+## [1.3] - 05-09-2018
 
 ### Changed
 
@@ -19,7 +19,8 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
-* First 2 steps to configure xdebug in PHPStorm are not longer needed because it is enough by just setting the debug port and server configuration
+* Remove first 2 steps to configure xdebug in PHPStorm are not longer needed because it is enough by just setting the debug port and server configuration
+* Remove bind mount of `generated` folder in `unison container. Unison container is now only meant to be used for `watch` command inside vendor modules.
 
 ## [1.2.0] - 30-08-2018
 ### Added

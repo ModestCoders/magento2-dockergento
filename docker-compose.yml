@@ -47,9 +47,7 @@ services:
     image: modestcoders/unison:2.51.2
     volumes:
       - app-vendor:/var/www/html/vendor
-      - app-generated:/var/www/html/generated
       - ./vendor:/sync/vendor
-      - ./generated:/sync/generated
     environment:
       - SYNC_SOURCE_BASE_PATH=/sync
       - SYNC_DESTINATION_BASE_PATH=/var/www/html
