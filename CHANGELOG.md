@@ -17,6 +17,10 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 * Documentation about how to sync `vendor` and `generated` volumes according to latest changes on [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console) 
 
+### Removed
+
+* First 2 steps to configure xdebug in PHPStorm are not longer needed because it is enough by just setting the debug port and server configuration
+
 ## [1.2.0] - 30-08-2018
 ### Added
 
