@@ -17,4 +17,4 @@ fi
 DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_DIR}/docker-compose.yml
 
 # Run GrumPHP
-(cd "${HOOK_EXEC_PATH}" && printf "%s\n" "${DIFF}" | docker-compose --file ${DOCKER_COMPOSE_FILE} exec -T phpfpm $(HOOK_COMMAND))
+(cd "${HOOK_EXEC_PATH}" && printf "%s\n" "${DIFF}" | docker-compose --file ${DOCKER_COMPOSE_FILE} exec -T phpfpm $(HOOK_COMMAND) '--skip-success-output')
