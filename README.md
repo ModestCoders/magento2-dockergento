@@ -195,7 +195,7 @@ See detailed documentation about development workflow with dockergento
 
 There is bug in docker that causes volumes to stop working and start behaving like a bind mount. If you notice a performance decrease, try the following:
 
-* `dockergento mounts-check`
+* `dockergento volumes-check`
 
 In case of confirmation that volumes are broken, restart dockergento
 
