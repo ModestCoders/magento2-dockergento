@@ -148,9 +148,7 @@ As a work-around for this behavior, you can put vendor or third-party library di
 	```
 	</details>
 
-3. (Recommended) Install [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console)
-
-	It is recommended to use this bash script tool for easier development workflow. See [dockergento workflow](#workflow) 
+3. Install [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console) 
 
 ## Usage
 
@@ -163,8 +161,8 @@ As a work-around for this behavior, you can put vendor or third-party library di
 ### Start Application
 
 ```
-docker-compose up app
-docker-compose exec phpfpm composer install
+dockergento start
+dockergento composer install
 sudo vim /etc/hosts
 // Add -> 127.0.0.1 <your-domain>
 ```
@@ -195,11 +193,11 @@ There is bug in docker that causes volumes to stop working and start behaving li
 
 * `dockergento volumes-check`
 
-In case of confirmation that volumes are broken, restart dockergento
+In case of confirmation that volumes are broken, restart dockergento:
 
 * `dockergento restart`
 
-NOTE: if volumes are still broken after restarting, you need to restart the docker app.
+**NOTE**: if volumes are still broken after restarting, you need to restart the docker app :(
 
 ## ChangeLog
 
