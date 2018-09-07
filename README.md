@@ -4,7 +4,7 @@
 
 ## Performance Comparison
 
-#### 10x faster than any other docker setup on MacOS
+#### 5x faster than any other docker setup on MacOS
 
 <a href="https://youtu.be/sGmXc_lzTNM" target="_blank">
   <img src="docs/img/comparison_speed_video.png" alt="Dockergento speed comparison" width="240" height="180" border="10" />
