@@ -49,7 +49,7 @@ As a work-around for this behavior, you can put vendor or third-party library di
 
 * Custom synchronisation of `vendor` and `generated`:
 	* These volumes are synchronised seamless thanks to [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console)
-	* See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.	
+	* See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.
 
 ## Preconditions
 
@@ -101,9 +101,7 @@ As a work-around for this behavior, you can put vendor or third-party library di
 		image: modestcoders/unison:2.51.2
 		volumes:
   			- app-vendor:/var/www/html/<magento_dir>/vendor
-  			- app-generated:/var/www/html/<magento_dir>/generated
   			- ./vendor:/sync/vendor
-  			- ./generated:/sync/generated
 		environment:
   			- SYNC_SOURCE_BASE_PATH=/sync
   			- SYNC_DESTINATION_BASE_PATH=/var/www/html/<magento_dir>
