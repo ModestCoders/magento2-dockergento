@@ -22,4 +22,5 @@ DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_DIR}/docker-compose.yml
 DOCKER_PHP_CONTAINER_ID=$(docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q phpfpm)
 
 # Run GrumPHP
-(cd "${HOOK_EXEC_PATH}" && printf "%s\n" "${DIFF}" | docker exec -t ${DOCKER_PHP_CONTAINER_ID} $(HOOK_COMMAND) "--git-user=$GIT_USER" "--git-email=$GIT_EMAIL" "$COMMIT_MSG_FILE")
+DIFF_STDIN=$(cd "${HOOK_EXEC_PATH}" && printf "%s\n" "${DIFF}")
+docker exec -t ${DOCKER_PHP_CONTAINER_ID} sh -c "echo '${DIFF_STDIN}' | $(HOOK_COMMAND) '--git-user=${GIT_USER}' '--git-email=${GIT_EMAIL}' '${COMMIT_MSG_FILE}'"
