@@ -21,6 +21,12 @@ fi
 DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_DIR}/docker-compose.yml
 DOCKER_PHP_CONTAINER_ID=$(docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q phpfpm)
 
+# Remove single quotes from hook_command. It is needed to use it inside the docker exec
+HOOK_COMMAND=$(echo "$(HOOK_COMMAND)" | sed "s/'//g")
+
 # Run GrumPHP
-DIFF_STDIN=$(cd "${HOOK_EXEC_PATH}" && printf "%s\n" "${DIFF}")
-docker exec -t ${DOCKER_PHP_CONTAINER_ID} sh -c "echo '${DIFF_STDIN}' | $(HOOK_COMMAND) '--git-user=${GIT_USER}' '--git-email=${GIT_EMAIL}' '${COMMIT_MSG_FILE}'"
+docker exec -t \
+    -e DIFF="${DIFF}" -e HOOK_EXEC_PATH=${HOOK_EXEC_PATH} -e HOOK_COMMAND="${HOOK_COMMAND}" \
+    -e GIT_USER="${GIT_USER}" -e GIT_EMAIL="${GIT_EMAIL}" -e COMMIT_MSG_FILE="${COMMIT_MSG_FILE}" \
+    ${DOCKER_PHP_CONTAINER_ID} sh -c \
+    'cd "${HOOK_EXEC_PATH}" && printf "%s\n" "${DIFF}" | ${HOOK_COMMAND} --git-user="${GIT_USER}" --git-email="${GIT_EMAIL}" "${COMMIT_MSG_FILE}"'
