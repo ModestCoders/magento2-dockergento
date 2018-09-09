@@ -15,6 +15,13 @@ if [[ ${DOCKER_COMPOSE_DIR} = *"/vendor/"* ]]; then
   DOCKER_COMPOSE_DIR=${VENDOR_PARENT_DIR}/..
 fi
 DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_DIR}/docker-compose.yml
+DOCKER_PHP_CONTAINER_ID=$(docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q phpfpm)
+
+# Remove single quotes from hook_command. It is needed to use it inside the docker exec
+HOOK_COMMAND=$(echo "$(HOOK_COMMAND)" | sed "s/'//g")
 
 # Run GrumPHP
-(cd "${HOOK_EXEC_PATH}" && printf "%s\n" "${DIFF}" | docker-compose --file ${DOCKER_COMPOSE_FILE} exec -T phpfpm $(HOOK_COMMAND))
+docker exec -t \
+    -e DIFF="${DIFF}" -e HOOK_EXEC_PATH=${HOOK_EXEC_PATH} -e HOOK_COMMAND="${HOOK_COMMAND}" \
+    ${DOCKER_PHP_CONTAINER_ID} sh -c \
+    'cd "${HOOK_EXEC_PATH}" && printf "%s\n" "${DIFF}" | ${HOOK_COMMAND} --skip-success-output'
