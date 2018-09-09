@@ -4,7 +4,7 @@
 
 ## Performance Comparison
 
-#### 10x faster than any other docker setup on MacOS
+#### 5x faster than any other docker setup on MacOS
 
 <a href="https://youtu.be/sGmXc_lzTNM" target="_blank">
   <img src="docs/img/comparison_speed_video.png" alt="Dockergento speed comparison" width="240" height="180" border="10" />
@@ -49,7 +49,7 @@ As a work-around for this behavior, you can put vendor or third-party library di
 
 * Custom synchronisation of `vendor` and `generated`:
 	* These volumes are synchronised seamless thanks to [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console)
-	* See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.	
+	* See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.
 
 ## Preconditions
 
@@ -101,9 +101,7 @@ As a work-around for this behavior, you can put vendor or third-party library di
 		image: modestcoders/unison:2.51.2
 		volumes:
   			- app-vendor:/var/www/html/<magento_dir>/vendor
-  			- app-generated:/var/www/html/<magento_dir>/generated
   			- ./vendor:/sync/vendor
-  			- ./generated:/sync/generated
 		environment:
   			- SYNC_SOURCE_BASE_PATH=/sync
   			- SYNC_DESTINATION_BASE_PATH=/var/www/html/<magento_dir>
@@ -150,9 +148,7 @@ As a work-around for this behavior, you can put vendor or third-party library di
 	```
 	</details>
 
-3. (Recommended) Install [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console)
-
-	It is recommended to use this bash script tool for easier development workflow. See [dockergento workflow](#workflow) 
+3. Install [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console) 
 
 ## Usage
 
@@ -165,8 +161,8 @@ As a work-around for this behavior, you can put vendor or third-party library di
 ### Start Application
 
 ```
-docker-compose up app
-docker-compose exec phpfpm composer install
+dockergento start
+dockergento composer install
 sudo vim /etc/hosts
 // Add -> 127.0.0.1 <your-domain>
 ```
@@ -197,9 +193,11 @@ There is bug in docker that causes volumes to stop working and start behaving li
 
 * `dockergento volumes-check`
 
-In case of confirmation that volumes are broken, restart dockergento
+In case of confirmation that volumes are broken, restart dockergento:
 
 * `dockergento restart`
+
+**NOTE**: if volumes are still broken after restarting, you need to restart the docker app :(
 
 ## ChangeLog
 
