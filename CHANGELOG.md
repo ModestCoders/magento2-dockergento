@@ -11,6 +11,16 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+## [1.3] - 05-09-2018
+
+### Changed
+
+* Documentation about how to sync `vendor` and `generated` volumes according to latest changes on [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console) 
+
+### Removed
+
+* Remove first 2 steps to configure xdebug in PHPStorm are not longer needed because it is enough by just setting the debug port and server configuration
+* Remove bind mount of `generated` folder in `unison container. Unison container is now only meant to be used for `watch` command inside vendor modules.
 
 ## [1.2.0] - 30-08-2018
 ### Added

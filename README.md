@@ -4,6 +4,8 @@
 
 ## Performance Comparison
 
+#### 10x faster than any other docker setup on MacOS
+
 <a href="https://youtu.be/sGmXc_lzTNM" target="_blank">
   <img src="docs/img/comparison_speed_video.png" alt="Dockergento speed comparison" width="240" height="180" border="10" />
 </a>
@@ -45,35 +47,9 @@ As a work-around for this behavior, you can put vendor or third-party library di
 	* pub/static
 	* pub/media
 
-* Synchronise `vendor` and `generated` volumes using a specific `unison` container. 
-
-	<details>
-	<summary>How to sync volumes between host and container</summary>
-	
-	See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.
-	
-	There are 2 options to sync the volumes `vendor` and `generated`
-
-	**Option 1: One time sync**
-
-	This option must be used most of the times. You should only need to sync `vendor` and `generated` from time to time for debugging purposes
-
-	```
-	docker-compose run --rm unison sync -path vendor -path generated
-	```
-
-	NOTE: For faster and more specific syncs, you can specify a subfolder like `sync -path vendor/<company_name>`.
-
-	**Option 2: Watch**
-
-	This option is only recommended if you are implementing code in a vendor module.
-
-	```
-	docker-compose run --rm unison watch -path vendor/<company_name>/<module_name>`
-	```	
-	
-	</details>
-	
+* Custom synchronisation of `vendor` and `generated`:
+	* These volumes are synchronised seamless thanks to [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console)
+	* See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.	
 
 ## Preconditions
 
@@ -215,9 +191,9 @@ See detailed documentation about development workflow with dockergento
 
 ## Troubleshooting
 
-### Named volumes suddenly binded to host
+### Named volumes suddenly bind to host
 
-There is bug in docker that causes volumes to stop working and start behabing like a binded mount. If you notice a performance decrease, try the following:
+There is bug in docker that causes volumes to stop working and start behaving like a bind mount. If you notice a performance decrease, try the following:
 
 * `dockergento volumes-check`
 
