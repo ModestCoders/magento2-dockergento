@@ -14,6 +14,7 @@ Xdebug needs to be enabled inside the `phpfpm` container.
 
 1. `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug`	
 	* Debug Port: 9001
+	* If checked, uncheck **Force break at first line when a script is outside the project** oterwhise the debugger will exit on every include/require call.
 
 	![debug_port](img/debug_port.png)
 
