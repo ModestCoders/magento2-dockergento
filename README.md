@@ -39,17 +39,19 @@ As a work-around for this behavior, you can put vendor or third-party library di
 
 **Solution:**
 
-* Use docker volumes for following directories:
+* Set full magento app inside a named volume `magento`
+* Synchronise only git repository files between host and container.
+* Everything else is not synchronised, so performance is same as in local setups.
 
-	* vendor
-	* generated
-	* var
-	* pub/static
-	* pub/media
+**How do you get the code that is not synchronised in your host?**
 
-* Custom synchronisation of `vendor` and `generated`:
-	* These volumes are synchronised seamless thanks to [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console)
-	* See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.
+Even if not synchronised, it is needed to have magento and vendor code in your host. Not only for developing but also for xdebug.
+
+To sync that code seamlessly, [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console) uses `docker cp` automatically when you execute relevant commands like `dockergento composer` or `dockergento start`, so you do not need to care about that.
+
+On the other hand, for those that implement modules inside vendor, we also provide a `unison` container that watches and syncs changes in background when you develop inside vendor.
+
+See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.
 
 ## Preconditions
 
@@ -87,23 +89,23 @@ As a work-around for this behavior, you can put vendor or third-party library di
 	app-volumes:
 		build: ./config/docker/image/app-volumes
 		volumes: &appvolumes
-  			- .:/var/www/html:delegated
-  			- ~/.composer:/var/www/.composer:delegated
-  			- sockdata:/sock
-  			- app-vendor:/var/www/html/<magento_dir>/vendor
-  			- app-generated:/var/www/html/<magento_dir>/generated
-  			- app-var:/var/www/html/<magento_dir>/var
-  			- pub-static:/var/www/html/<magento_dir>/pub/static
-  			- pub-media:/var/www/html/<magento_dir>/pub/media
-  			- integration-test-sandbox:/var/www/html/<magento_dir>/dev/tests/integration/tmp
+            - ~/.composer:/var/www/.composer:delegated
+            - sockdata:/sock
+            - magento:/var/www/html/<magento_dir>
+            - ./app:/var/www/html/<magento_dir>/app:delegated
+            - ./.git:/var/www/html/.git:delegated
+            - ./config:/var/www/html/config:delegated
+            - ./composer.json:/var/www/html/composer.json:delegated
+            - ./composer.lock:/var/www/html/composer.lock:delegated
+            # Add here the rest of files and folders in your git repository that you want to bind between host and container
 
 	unison:
 		image: modestcoders/unison:2.51.2
 		volumes:
-  			- app-vendor:/var/www/html/<magento_dir>/vendor
-  			- ./vendor:/sync/vendor
+            - magento:/var/www/html/<magento_dir>
+            - ./<magento_dir>/vendor:/sync/<magento_dir>/vendor
 		environment:
-  			- SYNC_SOURCE_BASE_PATH=/sync
+  			- SYNC_SOURCE_BASE_PATH=/sync/<magento_dir>
   			- SYNC_DESTINATION_BASE_PATH=/var/www/html/<magento_dir>
   			- SYNC_MAX_INOTIFY_WATCHES=60000
 	```
@@ -111,13 +113,7 @@ As a work-around for this behavior, you can put vendor or third-party library di
 	* `config/docker/image/app-volumes/Dockerfile`
 	
 	```
-	RUN mkdir -p /var/www/html/<magento_dir>/vendor \
-		/var/www/html/<magento_dir>/generated \
-		/var/www/html/<magento_dir>/var \
-		/var/www/html/<magento_dir>/pub/static \
-		/var/www/html/<magento_dir>/pub/media \
-		/var/www/html/<magento_dir>/dev/tests/integration/tmp \
-		&& chown -R 1000:1000 /var/www/html/<magento_dir>
+	RUN mkdir -p /var/www/html/<magento_dir> && chown -R 1000:1000 /var/www/html
 	```	
 	
 	* `config/docker/image/nginx/conf/default.conf`
