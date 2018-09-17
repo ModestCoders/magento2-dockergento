@@ -152,12 +152,6 @@ See [dockergento workflow](#workflow) for a better understanding about whole dev
 
 ## Usage
 
-### Video Demos
-
-<a href="https://www.youtube.com/watch?v=rtr8waq7DHo&list=PLBt8dizedSZBhcjTL8SM2PS2HEy0mFf5F" target="_blank">
-  <img src="docs/img/wizard_install_video.png" alt="Dockergento video demos" width="240px" height="180px" border="10" />
-</a>
-
 ### Start Application
 
 ```
