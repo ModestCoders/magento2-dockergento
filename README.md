@@ -185,20 +185,6 @@ See detailed documentation about development workflow with dockergento
 
 * [Docker Images List](docs/docker_images.md)
 
-## Troubleshooting
-
-### Named volumes suddenly bind to host
-
-There is bug in docker that causes volumes to stop working and start behaving like a bind mount. If you notice a performance decrease, try the following:
-
-* `dockergento volumes-check`
-
-In case of confirmation that volumes are broken, restart dockergento:
-
-* `dockergento restart`
-
-**NOTE**: if volumes are still broken after restarting, you need to restart the docker app :(
-
 ## ChangeLog
 
 * [CHANGELOG.md](CHANGELOG.md)
