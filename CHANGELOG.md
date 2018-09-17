@@ -11,6 +11,26 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+## [next release 2.0.0] - 13-09-2018
+### Added
+
+### Changed
+
+* Set whole magento application in a named volume `magento` instead of using 6 volumes:
+
+	```
+	app-vendor
+	app-generated
+	app-var
+	pub-static
+	pub-media
+	integration-test-sandbox
+	```
+
+    * Reason: Bug when having volumes inside a file bind mount: [#26157](https://github.com/moby/moby/issues/26157#issuecomment-419722589)
+
+### Removed
+
 ## [1.3.0] - 05-09-2018
 
 ### Changed

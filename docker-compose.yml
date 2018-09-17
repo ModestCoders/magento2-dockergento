@@ -4,15 +4,15 @@ services:
   app-volumes:
     build: ./config/docker/image/app-volumes
     volumes: &appvolumes
-      - .:/var/www/html:delegated
       - ~/.composer:/var/www/.composer:delegated
       - sockdata:/sock
-      - app-vendor:/var/www/html/vendor
-      - app-generated:/var/www/html/generated
-      - app-var:/var/www/html/var
-      - pub-static:/var/www/html/pub/static
-      - pub-media:/var/www/html/pub/media
-      - integration-test-sandbox:/var/www/html/dev/tests/integration/tmp
+      - magento:/var/www/html
+      - ./app:/var/www/html/app:delegated
+      - ./.git:/var/www/html/.git:delegated
+      - ./config:/var/www/html/config:delegated
+      - ./composer.json:/var/www/html/composer.json:delegated
+      - ./composer.lock:/var/www/html/composer.lock:delegated
+      # Add here the rest of files and folders in your git repository that you want to bind between host and container
 
   app:
     build: ./config/docker/image/nginx
@@ -43,10 +43,16 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
 
+  node:
+    image: modestcoders/node-php:node8-php7.1
+    volumes: *appvolumes
+    depends_on:
+      - app-volumes
+
   unison:
     image: modestcoders/unison:2.51.2
     volumes:
-      - app-vendor:/var/www/html/vendor
+      - magento:/var/www/html
       - ./vendor:/sync/vendor
     environment:
       - SYNC_SOURCE_BASE_PATH=/sync
@@ -56,18 +62,7 @@ services:
       - app-volumes
     privileged: true
 
-  node:
-    image: modestcoders/node-php:node8-php7.1
-    volumes: *appvolumes
-    depends_on:
-      - app-volumes
-
 volumes:
   dbdata:
   sockdata:
-  app-vendor:
-  app-generated:
-  app-var:
-  pub-static:
-  pub-media:
-  integration-test-sandbox:
+  magento:
