@@ -4,11 +4,15 @@
 
 ## Performance Comparison
 
-#### 5x faster than any other docker setup on MacOS
+#### Up to 10x faster development experience on OSX
 
 <a href="https://youtu.be/sGmXc_lzTNM" target="_blank">
   <img src="docs/img/comparison_speed_video.png" alt="Dockergento speed comparison" width="240" height="180" border="10" />
 </a>
+
+#### Check out all benchmarks
+
+* [Benchmarks: Dockergento vs Standard Docker](docs/benchmarks.md)
 
 ## Motivation
 
@@ -148,12 +152,6 @@ See [dockergento workflow](#workflow) for a better understanding about whole dev
 
 ## Usage
 
-### Video Demos
-
-<a href="https://www.youtube.com/watch?v=rtr8waq7DHo&list=PLBt8dizedSZBhcjTL8SM2PS2HEy0mFf5F" target="_blank">
-  <img src="docs/img/wizard_install_video.png" alt="Dockergento video demos" width="240px" height="180px" border="10" />
-</a>
-
 ### Start Application
 
 ```
@@ -180,20 +178,6 @@ See detailed documentation about development workflow with dockergento
 ## Docker Images
 
 * [Docker Images List](docs/docker_images.md)
-
-## Troubleshooting
-
-### Named volumes suddenly bind to host
-
-There is bug in docker that causes volumes to stop working and start behaving like a bind mount. If you notice a performance decrease, try the following:
-
-* `dockergento volumes-check`
-
-In case of confirmation that volumes are broken, restart dockergento:
-
-* `dockergento restart`
-
-**NOTE**: if volumes are still broken after restarting, you need to restart the docker app :(
 
 ## ChangeLog
 
