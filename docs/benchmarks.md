@@ -8,13 +8,28 @@
 * **Magento mode:** developer
 * **Data:** luma theme with magento sample data
 
-## Charts
+## Charts (Shorter is better)
 
-#### Shorter is better
+Performance is different depending on how busy your computer is. 
 
-![Benchmark Home Page](img/benchmark_home.png)
+Because of that we have made 2 different benchmarks:
 
-![Benchmark Home Page](img/benchmark_category.png)
+1. Apps needed for development running
+2. Only Docker and Chrome running
 
-![Benchmark Home Page](img/benchmark_product.png)
+### 1. Apps needed for development running
+
+* **Apps running:** PHPStorm, Sequel Pro, Outlook, Slack, Chrome, Docker
+
+![Benchmark Home Page](img/benchmark_home_slow.png)
+
+![Benchmark Home Page](img/benchmark_product_slow.png)
+
+### 2. Only Docker and Chrome running
+
+* **Apps running:** Chrome, Docker
+
+![Benchmark Home Page](img/benchmark_home_fast.png)
+
+![Benchmark Home Page](img/benchmark_product_fast.png)
 
