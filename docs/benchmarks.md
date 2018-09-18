@@ -7,6 +7,7 @@
 * **Docker version:** 18.06.1-ce-mac73
 * **Magento mode:** developer
 * **Data:** luma theme with magento sample data
+* **PHP version:** 7.1
 
 ## Charts (Shorter is better)
 
