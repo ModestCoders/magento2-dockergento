@@ -4,10 +4,10 @@
 
 ## Performance Comparison
 
-#### Up to 10x faster development experience on OSX
+#### Up to 7x faster development experience on OSX
 
-<a href="https://youtu.be/sGmXc_lzTNM" target="_blank">
-  <img src="docs/img/comparison_speed_video.png" alt="Dockergento speed comparison" width="240" height="180" border="10" />
+<a href="https://youtu.be/qdUBuDCzHaA" target="_blank">
+  <img src="docs/img/benchmark_comparison_video.png" alt="Dockergento speed comparison" width="320" height="180" border="5" />
 </a>
 
 #### Check out all benchmarks
