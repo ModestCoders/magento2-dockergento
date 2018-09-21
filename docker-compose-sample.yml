@@ -1,35 +1,31 @@
 version: "3"
 
 services:
-  app-volumes:
-    build: ./config/docker/image/app-volumes
+
+  phpfpm:
+    image: modestcoders/php:7.1-fpm
     volumes: &appvolumes
       - ~/.composer:/var/www/.composer:delegated
       - sockdata:/sock
-      - magento:/var/www/html
+      - workspace:/var/www/html
       - ./app:/var/www/html/app:delegated
       - ./.git:/var/www/html/.git:delegated
       - ./config:/var/www/html/config:delegated
       - ./composer.json:/var/www/html/composer.json:delegated
       - ./composer.lock:/var/www/html/composer.lock:delegated
-      # Add here the rest of files and folders in your git repository that you want to bind between host and container
+      # {files_in_git}
+    environment:
+      PHP_IDE_CONFIG: serverName=localhost
+    depends_on:
+      - db
 
   app:
-    build: ./config/docker/image/nginx
+    build: ./config/dockergento/image/nginx
     ports:
       - 80:8000
     volumes: *appvolumes
     depends_on:
       - phpfpm
-
-  phpfpm:
-    image: modestcoders/php:7.1-fpm
-    volumes: *appvolumes
-    environment:
-      PHP_IDE_CONFIG: serverName=localhost
-    depends_on:
-      - app-volumes
-      - db
 
   db:
     image: mysql:5.7
@@ -47,22 +43,22 @@ services:
     image: modestcoders/node-php:node8-php7.1
     volumes: *appvolumes
     depends_on:
-      - app-volumes
+      - phpfpm
 
   unison:
     image: modestcoders/unison:2.51.2
     volumes:
-      - magento:/var/www/html
+      - workspace:/var/www/html
       - ./vendor:/sync/vendor
     environment:
       - SYNC_SOURCE_BASE_PATH=/sync
       - SYNC_DESTINATION_BASE_PATH=/var/www/html
       - SYNC_MAX_INOTIFY_WATCHES=60000
     depends_on:
-      - app-volumes
+      - phpfpm
     privileged: true
 
 volumes:
   dbdata:
   sockdata:
-  magento:
+  workspace:

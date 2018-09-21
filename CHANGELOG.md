@@ -11,6 +11,13 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+## [next release 2.1.0] - 21-09-2018
+### Changed
+
+* Easier install documentation using `dockergento setup` command
+* Set all configuration settings inside `config/dockergento` folder
+* Change `docker-compose.yml` filename to `docker-compose-sample.yml` as this file needs to be copied and edited per project.
+
 ## [next release 2.0.0] - 13-09-2018
 ### Added
 
