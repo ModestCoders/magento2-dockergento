@@ -1,9 +1,8 @@
 version: "3"
 
 services:
-
-  phpfpm:
-    image: modestcoders/php:7.1-fpm
+  app-volumes:
+    build: ./config/dockergento/image/app-volumes
     volumes: &appvolumes
       - ~/.composer:/var/www/.composer:delegated
       - sockdata:/sock
@@ -14,10 +13,6 @@ services:
       - ./composer.json:/var/www/html/composer.json:delegated
       - ./composer.lock:/var/www/html/composer.lock:delegated
       # {files_in_git}
-    environment:
-      PHP_IDE_CONFIG: serverName=localhost
-    depends_on:
-      - db
 
   app:
     build: ./config/dockergento/image/nginx
@@ -26,6 +21,15 @@ services:
     volumes: *appvolumes
     depends_on:
       - phpfpm
+
+  phpfpm:
+    image: modestcoders/php:7.1-fpm
+    volumes: *appvolumes
+    environment:
+      PHP_IDE_CONFIG: serverName=localhost
+    depends_on:
+      - app-volumes
+      - db
 
   db:
     image: mysql:5.7
@@ -43,7 +47,7 @@ services:
     image: modestcoders/node-php:node8-php7.1
     volumes: *appvolumes
     depends_on:
-      - phpfpm
+      - app-volumes
 
   unison:
     image: modestcoders/unison:2.51.2
@@ -55,7 +59,7 @@ services:
       - SYNC_DESTINATION_BASE_PATH=/var/www/html
       - SYNC_MAX_INOTIFY_WATCHES=60000
     depends_on:
-      - phpfpm
+      - app-volumes
     privileged: true
 
 volumes:
