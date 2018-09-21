@@ -12,7 +12,7 @@ services:
       - ./config:/var/www/html/config:delegated
       - ./composer.json:/var/www/html/composer.json:delegated
       - ./composer.lock:/var/www/html/composer.lock:delegated
-      # {files_in_git}
+      # {FILES_IN_GIT}
 
   app:
     build: ./config/dockergento/image/nginx
