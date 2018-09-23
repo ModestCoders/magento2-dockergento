@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  app-volumes:
+    build: ./config/dockergento/image/app-volumes
+    volumes: &appvolumes-windows
+      - workspace:/var/www/html
+      - ./app:/var/www/html/app
+      - ./.git:/var/www/html/.git
+      - ./config:/var/www/html/config
+      - ./composer.json:/var/www/html/composer.json
+      - ./composer.lock:/var/www/html/composer.lock
+      # {FILES_IN_GIT}
+
+  app:
+    volumes: *appvolumes-windows
+
+  phpfpm:
+    volumes: *appvolumes-windows
+
+  node:
+    volumes: *appvolumes-windows
+
+  unison:
+    image: modestcoders/unison:2.51.2
+    volumes:
+      - workspace:/var/www/html
+      - ./vendor:/sync/vendor
+    environment:
+      - SYNC_SOURCE_BASE_PATH=/sync
+      - SYNC_DESTINATION_BASE_PATH=/var/www/html
+      - SYNC_MAX_INOTIFY_WATCHES=60000
+    depends_on:
+      - app-volumes
+    privileged: true
+
+volumes:
+  workspace:

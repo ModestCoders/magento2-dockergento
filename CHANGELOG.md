@@ -11,6 +11,11 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+## [next release 3.0.0] - 25-09-2018
+### Added
+
+* Multiple OS compatibility (Linux, Mac OSX and Windows)
+
 ## [next release 2.1.0] - 21-09-2018
 ### Changed
 
