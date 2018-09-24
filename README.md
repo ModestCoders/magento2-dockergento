@@ -71,68 +71,20 @@ See [dockergento workflow](#workflow) for a better understanding about whole dev
 
 ## Installation
 
-1. Copy this docker configuration repository in your project
+1. Install [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console)
 
-	```
-	cd <path_to_your_project>
-	curl -L https://api.github.com/repos/ModestCoders/magento2-dockergento/tarball | tar xz --strip=1
-	```
+2. Setup docker in your project:
 
-2. Edit binded paths or nginx configuration if needed
+    ```
+    cd <path_to_your_project>
+    dockergento setup
+    ```
+
+3. [Optional] If you have a multi-store magento, you need to add your website codes to the ngnix configuration as follows:
 
 	<details>
-	<summary>More info about custom configurations</summary>
-	
-	**Binded Paths:**
-	
-	If you install magento code in a different folder than your project root, you might need to replace `<magento_dir>` on the following files: 
-	
-	* `docker-compose.yml`
-	
-	```
-	app-volumes:
-		build: ./config/docker/image/app-volumes
-		volumes: &appvolumes
-            - ~/.composer:/var/www/.composer:delegated
-            - sockdata:/sock
-            - magento:/var/www/html/<magento_dir>
-            - ./app:/var/www/html/<magento_dir>/app:delegated
-            - ./.git:/var/www/html/.git:delegated
-            - ./config:/var/www/html/config:delegated
-            - ./composer.json:/var/www/html/composer.json:delegated
-            - ./composer.lock:/var/www/html/composer.lock:delegated
-            # Add here the rest of files and folders in your git repository that you want to bind between host and container
+	<summary>Open info about ngnix configuration</summary>
 
-	unison:
-		image: modestcoders/unison:2.51.2
-		volumes:
-            - magento:/var/www/html/<magento_dir>
-            - ./<magento_dir>/vendor:/sync/<magento_dir>/vendor
-		environment:
-  			- SYNC_SOURCE_BASE_PATH=/sync/<magento_dir>
-  			- SYNC_DESTINATION_BASE_PATH=/var/www/html/<magento_dir>
-  			- SYNC_MAX_INOTIFY_WATCHES=60000
-	```
-	
-	* `config/docker/image/app-volumes/Dockerfile`
-	
-	```
-	RUN mkdir -p /var/www/html/<magento_dir> && chown -R 1000:1000 /var/www/html
-	```	
-	
-	* `config/docker/image/nginx/conf/default.conf`
-	
-	```
-	server {
-		# ...
-		set $MAGE_ROOT /var/www/html/<magento_dir>;
-		# ...
-	```
-	
-	**Nginx Multi-store:**
-	
-	If you have a multi-store magento, you need to add your website codes to the ngnix configuration as follows:  
-	
 	* `config/docker/image/nginx/conf/default.conf`
 	
 	```
@@ -147,8 +99,6 @@ See [dockergento workflow](#workflow) for a better understanding about whole dev
 	}
 	```
 	</details>
-
-3. Install [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console) 
 
 ## Usage
 
