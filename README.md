@@ -4,7 +4,8 @@
 
 ## Performance Comparison
 
-#### Up to 7x faster development experience on OSX
+#### Native performance in all OS systems (Linux, Mac and Windows)
+#### Up to 7x faster development experience on Mac and Windows compare to standard docker setups.
 
 <a href="https://youtu.be/qdUBuDCzHaA" target="_blank">
   <img src="docs/img/benchmark_comparison_video.png" alt="Dockergento speed comparison" width="320" height="180" border="5" />
@@ -16,12 +17,11 @@
 
 ## Motivation
 
-This project aims to offer a good performance solution for Mac users that want to use docker on development.
-This is a docker setup optimised for Magento 2 on Mac. It has same performance as Linux or local setups.
+This project aims to offer native performance on all OS systems for users that want to use docker on development. That means same speed as local setups even on Mac and Windows.
 
-## Main Features
-
-### Overcome Docker for Mac performance issue
+## Main Features 
+	
+### Overcome Docker for Mac and Windows performance issues
 
 <details>
 <summary>Open to read issue explanation</summary>
@@ -57,17 +57,44 @@ On the other hand, for those that implement modules inside vendor, we also provi
 
 See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.
 
+
 ## Preconditions
 
 1. Configure your docker `File Sharing` settings
 
-	![File Sharing Configuration](docs/img/file_sharing.png)
+	* `/Users/<user>/.composer`
+	* `/Users/<user>/Sites`
+
+	**NOTE:** You do not need to have `Composer` installed. You only need to create a `.composer` folder in your computer, so it can be used by containers to cache composer dependecies instead of downloading them everytime.
+
+#### System detailed info 
+
+<details>
+<summary>Mac</summary>
 	
-	NOTE: You do not need to have `Composer` installed. You only need to create a `.composer` folder in your computer, so it can be used by containers to cache composer dependecies instead of downloading them everytime.
+![File Sharing Configuration](docs/img/file_sharing.png)
+	
+Optionally you can also apply these performance tweaks
 
-2. Optionally you can also apply these performance tweaks
+* [http://markshust.com/2018/01/30/performance-tuning-docker-mac](http://markshust.com/2018/01/30/performance-tuning-docker-mac)
 
-	* [http://markshust.com/2018/01/30/performance-tuning-docker-mac](http://markshust.com/2018/01/30/performance-tuning-docker-mac)
+</details>
+
+<details>
+<summary>Windows</summary>
+	
+TODO
+![File Sharing Configuration](docs/img/todo)
+	
+</details>
+	
+<details>
+<summary>Linux</summary>
+	
+TODO
+![File Sharing Configuration](docs/img/todo)
+	
+</details>
 
 ## Installation
 
