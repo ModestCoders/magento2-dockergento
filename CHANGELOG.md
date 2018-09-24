@@ -11,16 +11,14 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
-## [next release 2.1.0] - 21-09-2018
+## [2.1.0] - 21-09-2018
 ### Changed
 
 * Easier install documentation using `dockergento setup` command
 * Set all configuration settings inside `config/dockergento` folder
-* Change `docker-compose.yml` filename to `docker-compose-sample.yml` as this file needs to be copied and edited per project.
+* Change `docker-compose.yml` filename to `docker-compose.sample.yml` as this file needs to be copied and edited per project.
 
-## [next release 2.0.0] - 13-09-2018
-### Added
-
+## [2.0.0] - 13-09-2018
 ### Changed
 
 * Set whole magento application in a named volume `magento` instead of using 6 volumes:
@@ -36,12 +34,8 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
     * Reason: Bug when having volumes inside a file bind mount: [#26157](https://github.com/moby/moby/issues/26157#issuecomment-419722589)
 
-### Removed
-
 ## [1.3.0] - 05-09-2018
-
 ### Changed
-
 * Documentation about how to sync `vendor` and `generated` volumes according to latest changes on [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console) 
 
 ### Removed
