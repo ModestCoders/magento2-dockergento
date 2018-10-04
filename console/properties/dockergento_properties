@@ -1,0 +1,23 @@
+MAGENTO_DIR="."
+COMPOSER_DIR="."
+BIN_DIR="./vendor/bin"
+GENERATED_DIR="generated" # Set to "var/generation" for magento >=2.1
+
+HOST_DIR="."
+
+DOCKER_COMPOSE_FILE="docker-compose.yml"
+DOCKER_COMPOSE_FILE_LINUX="docker-compose.dev.linux.yml"
+DOCKER_COMPOSE_FILE_MAC="docker-compose.dev.mac.yml"
+DOCKER_COMPOSE_FILE_WINDOWS="docker-compose.dev.windows.yml"
+
+SERVICE_APP="app"
+SERVICE_PHP="phpfpm"
+SERVICE_DB="db"
+SERVICE_UNISON="unison"
+SERVICE_NODE="node"
+
+USER_PHP="app"
+GROUP_PHP="app"
+WORKDIR_PHP="/var/www/html"
+
+MIRROR_PATHS_ALLOWED="vendor generated var"

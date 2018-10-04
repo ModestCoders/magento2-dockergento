@@ -1,0 +1,16 @@
+{
+  "name": "modestcoders/magento2-dockergento-console",
+  "description": "Commands to help you using magento2-dockergento",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Juan Alonso",
+      "email": "juan.jalogut@gmail.com"
+    },
+    {
+      "name": "Daniel Lozano",
+      "email": "dn.lozano.m@gmail.com"
+    }
+  ],
+  "bin": ["bin/dockergento"]
+}

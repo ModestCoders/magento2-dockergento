@@ -15,6 +15,7 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 ### Added
 
 * Multiple OS compatibility (Linux, Mac OSX and Windows)
+* Include `magento2-dockergento-console` directly in this repository.
 
 ## [2.1.0] - 21-09-2018
 ### Changed

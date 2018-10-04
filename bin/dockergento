@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+set -eu
+
+resolve_absolute_dir()
+{
+    SOURCE="${BASH_SOURCE[0]}"
+    while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+      DIR="$( cd -P "$( dirname ${SOURCE} )" && pwd )"
+      SOURCE="$(readlink ${SOURCE})"
+      [[ ${SOURCE} != /* ]] && SOURCE="${DIR}/${SOURCE}" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+    done
+    ABSOLUTE_BIN_PATH="$( cd -P "$( dirname ${SOURCE} )" && pwd )"
+    ABSOLUTE_PATH="${ABSOLUTE_BIN_PATH}/.."
+}
+
+init_dirs()
+{
+    resolve_absolute_dir
+    export DOCKERGENTO_DIR="${ABSOLUTE_PATH}"
+    export COMMANDS_DIR="${ABSOLUTE_PATH}/console/commands"
+    export TASKS_DIR="${ABSOLUTE_PATH}/console/tasks"
+    export PROPERTIES_DIR="${ABSOLUTE_PATH}/console/properties"
+}
+
+usage()
+{
+    printf "${YELLOW}Usage:${COLOR_RESET}\n"
+    echo "  [options] command [arguments]"
+    echo ""
+    printf "${YELLOW}Options:${COLOR_RESET}\n"
+    printf "  ${GREEN}-T${COLOR_RESET}     Disable pseudo-tty allocation\n"
+    echo ""
+    printf "${YELLOW}Available commands:${COLOR_RESET}\n"
+	COMMANDS=""
+	for script in "$COMMANDS_DIR"/*
+	do
+	    COMMAND_BASENAME=$(basename ${script})
+	    COMMANDS="${COMMANDS}  ${COMMAND_BASENAME%.sh}\n"
+	done
+    printf "${GREEN}${COMMANDS}${COLOR_RESET}"
+}
+
+init_dirs
+source ${TASKS_DIR}/load_properties.sh
+
+if [ "$#" == 0 ] || [ "$1" == "--help" ]; then
+  usage
+  exit 0
+fi
+
+export TTY_DISABLE=${TTY_DISABLE:=false}
+if [ "$1" == "-T" ]; then
+    shift
+    TTY_DISABLE=true
+fi
+
+COMMAND_NAME="$1.sh"
+if [ ! -f ${COMMANDS_DIR}/${COMMAND_NAME} ]; then
+    printf "${RED}Command not found${COLOR_RESET}\n"
+    printf " Execute ${GREEN}dockergento --help${COLOR_RESET} to see commands available\n"
+    exit 1
+fi
+
+source ${TASKS_DIR}/set_machine_specific_properties.sh
+export DOCKER_COMPOSE="docker-compose -f ${DOCKER_COMPOSE_FILE} -f ${DOCKER_COMPOSE_FILE_MACHINE}"
+
+
+if [[ "$1" != "setup" && "$1" != "docker-stop-all" && "$1" != "docker-remove-all" ]]; then
+    printf "${GREEN}Validating docker configuration${COLOR_RESET}\n"
+    CONFIG_IS_VALID=$(${DOCKER_COMPOSE} config -q && echo true || echo false)
+    if [[ ${CONFIG_IS_VALID} == false ]]; then
+        echo ""
+        printf "${RED}Docker is not properly configured. Please execute:${COLOR_RESET}\n"
+        echo ""
+        echo "  dockergento setup"
+        echo ""
+        exit 1
+    fi
+fi
+
+shift
+${COMMANDS_DIR}/${COMMAND_NAME} "$@"
