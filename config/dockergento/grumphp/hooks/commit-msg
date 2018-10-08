@@ -24,9 +24,15 @@ DOCKER_PHP_CONTAINER_ID=$(docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q phpfpm)
 # Remove single quotes from hook_command. It is needed to use it inside the docker exec
 HOOK_COMMAND=$(echo "$(HOOK_COMMAND)" | sed "s/'//g")
 
+echo ${DIFF} >> grumphp-diff && docker cp  grumphp-diff ${DOCKER_PHP_CONTAINER_ID}:/tmp/grumphp-diff
+
 # Run GrumPHP
 docker exec -t \
-    -e DIFF="${DIFF}" -e HOOK_EXEC_PATH=${HOOK_EXEC_PATH} -e HOOK_COMMAND="${HOOK_COMMAND}" \
+    -e HOOK_EXEC_PATH=${HOOK_EXEC_PATH} -e HOOK_COMMAND="${HOOK_COMMAND}" \
     -e GIT_USER="${GIT_USER}" -e GIT_EMAIL="${GIT_EMAIL}" -e COMMIT_MSG_FILE="${COMMIT_MSG_FILE}" \
     ${DOCKER_PHP_CONTAINER_ID} sh -c \
-    'cd "${HOOK_EXEC_PATH}" && printf "%s\n" "${DIFF}" | ${HOOK_COMMAND} --git-user="${GIT_USER}" --git-email="${GIT_EMAIL}" "${COMMIT_MSG_FILE}"'
+    'cd "${HOOK_EXEC_PATH}" && cat /tmp/grumphp-diff | ${HOOK_COMMAND} --git-user="${GIT_USER}" --git-email="${GIT_EMAIL}" "${COMMIT_MSG_FILE}"'
+
+GRUMPHP_EXIT_CODE=$?
+rm -f grumphp-diff && docker exec -u root -t ${DOCKER_PHP_CONTAINER_ID} sh -c "rm -f /tmp/grumphp-diff"
+exit $GRUMPHP_EXIT_CODE
