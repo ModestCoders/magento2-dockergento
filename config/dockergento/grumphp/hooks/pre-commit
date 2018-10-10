@@ -4,10 +4,9 @@
 # Run the hook command.
 # Note: this will be replaced by the real command during copy.
 #
-
-
 # Fetch the GIT diff and format it as command input:
 DIFF=$(git -c diff.mnemonicprefix=false --no-pager diff -r -p -m -M --full-index --no-color --staged | cat)
+DIFF_FILE="grumphp-diff"
 
 # Get docker-compose file path
 DOCKER_COMPOSE_DIR=$(PWD)
@@ -21,14 +20,17 @@ DOCKER_PHP_CONTAINER_ID=$(docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q phpfpm)
 # Remove single quotes from hook_command. It is needed to use it inside the docker exec
 HOOK_COMMAND=$(echo "$(HOOK_COMMAND)" | sed "s/'//g")
 
-echo ${DIFF} >> grumphp-diff && docker cp  grumphp-diff ${DOCKER_PHP_CONTAINER_ID}:/tmp/grumphp-diff
+echo ${DIFF} >> "${DIFF_FILE}" && docker cp grumphp-diff ${DOCKER_PHP_CONTAINER_ID}:"/tmp/${DIFF_FILE}"
 
 # Run GrumPHP
 docker exec -t \
-	-e HOOK_EXEC_PATH=${HOOK_EXEC_PATH} -e HOOK_COMMAND="${HOOK_COMMAND}" \
+    -e HOOK_EXEC_PATH=${HOOK_EXEC_PATH} -e HOOK_COMMAND="${HOOK_COMMAND}" -e DIFF_FILE="${DIFF_FILE}" \
     ${DOCKER_PHP_CONTAINER_ID} sh -c \
-    'cd "${HOOK_EXEC_PATH}" cat /tmp/grumphp-diff | ${HOOK_COMMAND} --skip-success-output'
-
+    'cd "${HOOK_EXEC_PATH}" cat "/tmp/${DIFF_FILE}" | ${HOOK_COMMAND} --skip-success-output'
 GRUMPHP_EXIT_CODE=$?
-rm -f grumphp-diff && docker exec -u root -t ${DOCKER_PHP_CONTAINER_ID} sh -c "rm -f /tmp/grumphp-diff"
+
+rm -f "${DIFF_FILE}" && docker exec -t \
+    -u root -e DIFF_FILE="${DIFF_FILE}" \
+    ${DOCKER_PHP_CONTAINER_ID} sh -c 'rm -f "/tmp/${DIFF_FILE}"'
+
 exit $GRUMPHP_EXIT_CODE
