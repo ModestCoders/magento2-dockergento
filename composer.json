@@ -1,5 +1,5 @@
 {
-  "name": "modestcoders/magento2-dockergento-console",
+  "name": "modestcoders/magento2-dockergento",
   "description": "Commands to help you using magento2-dockergento",
   "type": "library",
   "authors": [
