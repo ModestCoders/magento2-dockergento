@@ -8,7 +8,7 @@ if [[ "${MACHINE}" == "mac" || "${MACHINE}" == "windows" ]]; then
         printf "${RED}Vendor cannot be a bind mount. Please do the following:${COLOR_RESET}\n"
         echo ""
         echo "  1. Remove from your docker-compose configuration:"
-        echo "      ./<host_path>:${BIND_MOUNT_PATH}"
+        echo "      - ./<host_path>:${BIND_MOUNT_PATH}"
         echo ""
         echo "  2. Execute:"
         echo "      dockergento rebuild"
