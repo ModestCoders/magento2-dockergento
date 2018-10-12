@@ -2,13 +2,13 @@ version: "3"
 
 services:
   app-volumes:
-    build: ../config/dockergento/image/app-volumes
+    build: ./config/dockergento/image/app-volumes
     volumes: &appvolumes
       - ../.composer:/var/www/.composer
       - sockdata:/sock
 
   app:
-    build: ../config/dockergento/image/nginx
+    build: ./config/dockergento/image/nginx
     ports:
       - 80:8000
     volumes: *appvolumes
