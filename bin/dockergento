@@ -66,16 +66,7 @@ export DOCKER_COMPOSE="docker-compose -f ${DOCKER_COMPOSE_FILE} -f ${DOCKER_COMP
 
 
 if [[ "$1" != "setup" && "$1" != "docker-stop-all" && "$1" != "docker-remove-all" ]]; then
-    printf "${GREEN}Validating docker configuration${COLOR_RESET}\n"
-    CONFIG_IS_VALID=$(${DOCKER_COMPOSE} config -q && echo true || echo false)
-    if [[ ${CONFIG_IS_VALID} == false ]]; then
-        echo ""
-        printf "${RED}Docker is not properly configured. Please execute:${COLOR_RESET}\n"
-        echo ""
-        echo "  dockergento setup"
-        echo ""
-        exit 1
-    fi
+    ${TASKS_DIR}/validate_docker_compose.sh
 fi
 
 shift

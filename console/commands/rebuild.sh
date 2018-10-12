@@ -10,3 +10,5 @@ else
     ${COMMANDS_DIR}/stop.sh "$@"
     ${DOCKER_COMPOSE} up --build -d "$@"
 fi
+
+${TASKS_DIR}/validate_bind_mounts.sh
