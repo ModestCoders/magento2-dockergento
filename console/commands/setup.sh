@@ -41,10 +41,10 @@ sed_in_file()
 
 printf " > ${GREEN} Setting up dockergento config files${COLOR_RESET}\n"
 copy_with_consent "${DOCKERGENTO_DIR}/${DOCKERGENTO_CONFIG_DIR}" "${DOCKERGENTO_CONFIG_DIR}"
-copy_with_consent "${DOCKERGENTO_DIR}/docker-compose.sample.yml" "${DOCKER_COMPOSE_FILE}"
-copy_with_consent "${DOCKERGENTO_DIR}/docker-compose.dev.linux.sample.yml" "${DOCKER_COMPOSE_FILE_LINUX}"
-copy_with_consent "${DOCKERGENTO_DIR}/docker-compose.dev.mac.sample.yml" "${DOCKER_COMPOSE_FILE_MAC}"
-copy_with_consent "${DOCKERGENTO_DIR}/docker-compose.dev.windows.sample.yml" "${DOCKER_COMPOSE_FILE_WINDOWS}"
+copy_with_consent "${DOCKERGENTO_DIR}/docker-compose/docker-compose.sample.yml" "${DOCKER_COMPOSE_FILE}"
+copy_with_consent "${DOCKERGENTO_DIR}/docker-compose/docker-compose.dev.linux.sample.yml" "${DOCKER_COMPOSE_FILE_LINUX}"
+copy_with_consent "${DOCKERGENTO_DIR}/docker-compose/docker-compose.dev.mac.sample.yml" "${DOCKER_COMPOSE_FILE_MAC}"
+copy_with_consent "${DOCKERGENTO_DIR}/docker-compose/docker-compose.dev.windows.sample.yml" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 
 read -p "Magento root dir: [${MAGENTO_DIR}] " ANSWER_MAGENTO_DIR
 MAGENTO_DIR=${ANSWER_MAGENTO_DIR:-${MAGENTO_DIR}}
