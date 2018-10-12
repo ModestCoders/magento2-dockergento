@@ -58,20 +58,20 @@ if [ "${MAGENTO_DIR}" != "." ]; then
 	sed_in_file "s#/app:#/${MAGENTO_DIR}/app:#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
 	sed_in_file "s#/vendor#/${MAGENTO_DIR}/vendor#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
 	sed_in_file "s#SYNC_SOURCE_BASE_PATH=/sync#SYNC_SOURCE_BASE_PATH=/sync/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
-	sed_in_file "s#SYNC_DESTINATION_BASE_PATH=/var/www/html#SYNC_DESTINATION_BASE_PATH=/var/www/html/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
+	sed_in_file "s#SYNC_DESTINATION_BASE_PATH=/var/www/html#SYNC_DESTINATION_BASE_PATH=${WORKDIR_PHP}/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
     echo "--------------------"
 #    echo "------ ${DOCKER_COMPOSE_FILE_WINDOWS} ------"
 #	sed_in_file "s#/app:#/${MAGENTO_DIR}/app:#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 #	sed_in_file "s#/html/app#/html/${MAGENTO_DIR}/app#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 #	sed_in_file "s#/vendor#/${MAGENTO_DIR}/vendor#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 #	sed_in_file "s#SYNC_SOURCE_BASE_PATH=/sync#SYNC_SOURCE_BASE_PATH=/sync/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
-#	sed_in_file "s#SYNC_DESTINATION_BASE_PATH=/var/www/html#SYNC_DESTINATION_BASE_PATH=/var/www/html/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
+#	sed_in_file "s#SYNC_DESTINATION_BASE_PATH=/var/www/html#SYNC_DESTINATION_BASE_PATH=${WORKDIR_PHP}/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
     echo "--------------------"
     echo "------ ${DOCKERGENTO_CONFIG_DIR}/image/app-volumes/Dockerfile ------"
-    sed_in_file "s#/var/www/html#/var/www/html/${MAGENTO_DIR}#w /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/image/app-volumes/Dockerfile"
+    sed_in_file "s#/var/www/html#${WORKDIR_PHP}/${MAGENTO_DIR}#w /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/image/app-volumes/Dockerfile"
     echo "--------------------"
     echo "------ ${DOCKERGENTO_CONFIG_DIR}/image/nginx/conf/default.conf ------"
-    sed_in_file "s#/var/www/html#/var/www/html/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/image/nginx/conf/default.conf"
+    sed_in_file "s#/var/www/html#${WORKDIR_PHP}/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/image/nginx/conf/default.conf"
     echo "--------------------"
     printf "${COLOR_RESET}"
 fi
@@ -133,7 +133,7 @@ add_git_bind_paths_in_file()
         fi
         BIND_PATHS="${BIND_PATHS}- ${NEW_PATH}${SUFFIX_BIND_PATH}"
 
-    done <<< "$GIT_FILES"
+    done <<< "${GIT_FILES}"
 
     printf "${YELLOW}"
     echo "------ ${FILE_TO_EDIT} ------"
@@ -158,11 +158,10 @@ echo "PHP version:"
 DEFAULT_PHP_VERSION="7.1"
 AVAILABLE_PHP_VERSIONS="7.0 7.1"
 select PHP_VERSION in ${AVAILABLE_PHP_VERSIONS}; do
-    source ${TASKS_DIR}/list_functions.sh
-    if $(in_list "${PHP_VERSION}" "${AVAILABLE_PHP_VERSIONS}"); then
+    if $(${TASKS_DIR}/in_list.sh "${PHP_VERSION}" "${AVAILABLE_PHP_VERSIONS}"); then
         break
     fi
-    if $(in_list "${REPLY}" "${AVAILABLE_PHP_VERSIONS}"); then
+    if $(${TASKS_DIR}/in_list.sh "${REPLY}" "${AVAILABLE_PHP_VERSIONS}"); then
         PHP_VERSION=${REPLY}
         break
     fi
