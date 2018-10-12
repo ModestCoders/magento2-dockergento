@@ -23,7 +23,10 @@ if [[ ${CONTAINER_ID} != "" ]];then
         BIND_PATH_NEEDLE=$(sanitize_path "${BIND_PATH_NEEDLE}")
         MOUNT=$(sanitize_path "${MOUNT}")
         if [[ "${BIND_PATH_NEEDLE}" == "${MOUNT}" ]] || \
-            [[ "${BIND_PATH_NEEDLE}" == "${MOUNT}/"* ]]; then
+            # needle path inside bind path
+            [[ "${BIND_PATH_NEEDLE}" == "${MOUNT}/"* ]] || \
+            # needle path contains a bind path
+            [[ "${MOUNT}" == "${BIND_PATH_NEEDLE}/"* ]]; then
             echo ${MOUNT#bind:}
             exit 0
         fi
