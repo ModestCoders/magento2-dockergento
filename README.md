@@ -109,7 +109,7 @@ TODO
 	<details>
 	<summary>Open info about ngnix configuration</summary>
 
-	* `config/docker/image/nginx/conf/default.conf`
+	* `config/dockergento/nginx/conf/default.conf`
 	
 	```
 	# WEBSITES MAPPING

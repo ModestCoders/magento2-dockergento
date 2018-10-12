@@ -10,7 +10,7 @@ DOCKER_COMPOSE_FILE_LINUX="docker-compose.dev.linux.yml"
 DOCKER_COMPOSE_FILE_MAC="docker-compose.dev.mac.yml"
 DOCKER_COMPOSE_FILE_WINDOWS="docker-compose.dev.windows.yml"
 
-SERVICE_APP="app"
+SERVICE_APP="nginx"
 SERVICE_PHP="phpfpm"
 SERVICE_DB="db"
 SERVICE_UNISON="unison"

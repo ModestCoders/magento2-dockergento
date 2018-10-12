@@ -1,15 +1,11 @@
 version: "3"
 
 services:
-  app-volumes:
-    build: ./config/dockergento/image/app-volumes
+  phpfpm:
     volumes: &appvolumes-linux
       - .:/var/www/html
 
-  app:
-    volumes: *appvolumes-linux
-
-  phpfpm:
+  nginx:
     volumes: *appvolumes-linux
 
   node:

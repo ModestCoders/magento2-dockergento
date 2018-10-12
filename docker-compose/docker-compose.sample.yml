@@ -1,28 +1,24 @@
 version: "3"
 
 services:
-  app-volumes:
-    build: ./config/dockergento/image/app-volumes
+  phpfpm:
+    image: modestcoders/php:7.1-fpm-1
     volumes: &appvolumes
       - ../.composer:/var/www/.composer
       - sockdata:/sock
+      - ./config/dockergento/nginx/conf/default.conf:/var/www/conf/nginx/default.conf
+    environment:
+      PHP_IDE_CONFIG: serverName=localhost
+    depends_on:
+      - db
 
-  app:
-    build: ./config/dockergento/image/nginx
+  nginx:
+    image: modestcoders/nginx:1.13
     ports:
       - 80:8000
     volumes: *appvolumes
     depends_on:
       - phpfpm
-
-  phpfpm:
-    image: modestcoders/php:7.1-fpm
-    volumes: *appvolumes
-    environment:
-      PHP_IDE_CONFIG: serverName=localhost
-    depends_on:
-      - app-volumes
-      - db
 
   db:
     image: mysql:5.7
@@ -40,7 +36,7 @@ services:
     image: modestcoders/node-php:node8-php7.1
     volumes: *appvolumes
     depends_on:
-      - app-volumes
+      - phpfpm
 
 volumes:
   dbdata:

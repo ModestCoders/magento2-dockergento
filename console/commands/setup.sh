@@ -66,12 +66,9 @@ if [ "${MAGENTO_DIR}" != "." ]; then
 #	sed_in_file "s#/vendor#/${MAGENTO_DIR}/vendor#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 #	sed_in_file "s#SYNC_SOURCE_BASE_PATH=/sync#SYNC_SOURCE_BASE_PATH=/sync/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 #	sed_in_file "s#SYNC_DESTINATION_BASE_PATH=/var/www/html#SYNC_DESTINATION_BASE_PATH=${WORKDIR_PHP}/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
-    echo "--------------------"
-    echo "------ ${DOCKERGENTO_CONFIG_DIR}/image/app-volumes/Dockerfile ------"
-    sed_in_file "s#/var/www/html#${WORKDIR_PHP}/${MAGENTO_DIR}#w /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/image/app-volumes/Dockerfile"
-    echo "--------------------"
-    echo "------ ${DOCKERGENTO_CONFIG_DIR}/image/nginx/conf/default.conf ------"
-    sed_in_file "s#/var/www/html#${WORKDIR_PHP}/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/image/nginx/conf/default.conf"
+#    echo "--------------------"
+    echo "------ ${DOCKERGENTO_CONFIG_DIR}/nginx/conf/default.conf ------"
+    sed_in_file "s#/var/www/html#${WORKDIR_PHP}/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/nginx/conf/default.conf"
     echo "--------------------"
     printf "${COLOR_RESET}"
 fi
@@ -90,7 +87,7 @@ if [ "${COMPOSER_DIR}" != "." ]; then
 #    echo "------ ${DOCKER_COMPOSE_FILE_WINDOWS} ------"
 #	sed_in_file "s#/composer.json#/${COMPOSER_DIR}/composer.json#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 #	sed_in_file "s#/composer.lock#/${COMPOSER_DIR}/composer.lock#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
-    echo "--------------------"
+#    echo "--------------------"
     printf "${COLOR_RESET}\n"
 fi
 

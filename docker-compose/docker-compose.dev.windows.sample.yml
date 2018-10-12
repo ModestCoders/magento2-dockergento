@@ -1,8 +1,7 @@
 version: "3"
 
 services:
-  app-volumes:
-    build: ./config/dockergento/image/app-volumes
+  phpfpm:
     volumes: &appvolumes-windows
       - workspace:/var/www/html
       - ./app:/var/www/html/app
@@ -12,10 +11,7 @@ services:
       - ./composer.lock:/var/www/html/composer.lock
       # {FILES_IN_GIT}
 
-  app:
-    volumes: *appvolumes-windows
-
-  phpfpm:
+  nginx:
     volumes: *appvolumes-windows
 
   node:
@@ -31,7 +27,7 @@ services:
       - SYNC_DESTINATION_BASE_PATH=/var/www/html
       - SYNC_MAX_INOTIFY_WATCHES=60000
     depends_on:
-      - app-volumes
+      - phpfpm
     privileged: true
 
 volumes:
