@@ -14,9 +14,6 @@ usage()
     printf "${YELLOW}Options:${COLOR_RESET}\n"
     printf "  ${GREEN}-f, --force${COLOR_RESET}     Do not ask confirmation to remove host destination\n"
     echo ""
-    printf "${YELLOW}Allowed paths to mirror:${COLOR_RESET}\n"
-    echo "  ${MIRROR_PATHS_ALLOWED}"
-    echo ""
     echo "Example:"
     printf "  ${GREEN}dockergento mirror-container generated${COLOR_RESET}\n"
 }
@@ -69,7 +66,6 @@ do
 
     echo " > validating and sanitizing path: '${PATH_TO_MIRROR}'"
     PATH_TO_MIRROR=$(sanitize_mirror_path "${PATH_TO_MIRROR}")
-    validate_mirror_path "${PATH_TO_MIRROR}"
 
     SRC_PATH="${PATH_TO_MIRROR}/."
     DEST_PATH="${PATH_TO_MIRROR}"

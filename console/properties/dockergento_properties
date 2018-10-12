@@ -19,5 +19,3 @@ SERVICE_NODE="node"
 USER_PHP="app"
 GROUP_PHP="app"
 WORKDIR_PHP="/var/www/html"
-
-MIRROR_PATHS_ALLOWED="vendor generated var"
