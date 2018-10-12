@@ -15,18 +15,20 @@ PATH_TO_CHECK="$1"
 BIND_PATH_NEEDLE="bind:${PATH_TO_CHECK}"
 
 CONTAINER_ID=$(${DOCKER_COMPOSE} ps -q ${SERVICE_PHP})
-MOUNTS=$(docker container inspect -f '{{ range .Mounts }}{{ .Type }}:{{ .Destination }} {{ end }}' ${CONTAINER_ID})
+if [[ ${CONTAINER_ID} != "" ]];then
+    MOUNTS=$(docker container inspect -f '{{ range .Mounts }}{{ .Type }}:{{ .Destination }} {{ end }}' ${CONTAINER_ID})
 
-for MOUNT in ${MOUNTS}
-do
-    BIND_PATH_NEEDLE=$(sanitize_path "${BIND_PATH_NEEDLE}")
-    MOUNT=$(sanitize_path "${MOUNT}")
-    if [[ "${BIND_PATH_NEEDLE}" == "${MOUNT}" ]] || \
-        [[ "${BIND_PATH_NEEDLE}" == "${MOUNT}/"* ]]; then
-        echo ${MOUNT#bind:}
-        exit 0
-    fi
-done
+    for MOUNT in ${MOUNTS}
+    do
+        BIND_PATH_NEEDLE=$(sanitize_path "${BIND_PATH_NEEDLE}")
+        MOUNT=$(sanitize_path "${MOUNT}")
+        if [[ "${BIND_PATH_NEEDLE}" == "${MOUNT}" ]] || \
+            [[ "${BIND_PATH_NEEDLE}" == "${MOUNT}/"* ]]; then
+            echo ${MOUNT#bind:}
+            exit 0
+        fi
+    done
+fi
 
 echo false
 exit 0
