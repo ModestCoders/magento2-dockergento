@@ -44,7 +44,7 @@ copy_with_consent "${DOCKERGENTO_DIR}/${DOCKERGENTO_CONFIG_DIR}" "${DOCKERGENTO_
 copy_with_consent "${DOCKERGENTO_DIR}/docker-compose/docker-compose.sample.yml" "${DOCKER_COMPOSE_FILE}"
 copy_with_consent "${DOCKERGENTO_DIR}/docker-compose/docker-compose.dev.linux.sample.yml" "${DOCKER_COMPOSE_FILE_LINUX}"
 copy_with_consent "${DOCKERGENTO_DIR}/docker-compose/docker-compose.dev.mac.sample.yml" "${DOCKER_COMPOSE_FILE_MAC}"
-copy_with_consent "${DOCKERGENTO_DIR}/docker-compose/docker-compose.dev.windows.sample.yml" "${DOCKER_COMPOSE_FILE_WINDOWS}"
+#copy_with_consent "${DOCKERGENTO_DIR}/docker-compose/docker-compose.dev.windows.sample.yml" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 
 read -p "Magento root dir: [${MAGENTO_DIR}] " ANSWER_MAGENTO_DIR
 MAGENTO_DIR=${ANSWER_MAGENTO_DIR:-${MAGENTO_DIR}}
@@ -59,12 +59,12 @@ if [ "${MAGENTO_DIR}" != "." ]; then
 	sed_in_file "s#SYNC_SOURCE_BASE_PATH=/sync#SYNC_SOURCE_BASE_PATH=/sync/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
 	sed_in_file "s#SYNC_DESTINATION_BASE_PATH=/var/www/html#SYNC_DESTINATION_BASE_PATH=/var/www/html/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
     echo "--------------------"
-    echo "------ ${DOCKER_COMPOSE_FILE_WINDOWS} ------"
-	sed_in_file "s#/app:#/${MAGENTO_DIR}/app:#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
-	sed_in_file "s#/html/app#/html/${MAGENTO_DIR}/app#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
-	sed_in_file "s#/vendor#/${MAGENTO_DIR}/vendor#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
-	sed_in_file "s#SYNC_SOURCE_BASE_PATH=/sync#SYNC_SOURCE_BASE_PATH=/sync/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
-	sed_in_file "s#SYNC_DESTINATION_BASE_PATH=/var/www/html#SYNC_DESTINATION_BASE_PATH=/var/www/html/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
+#    echo "------ ${DOCKER_COMPOSE_FILE_WINDOWS} ------"
+#	sed_in_file "s#/app:#/${MAGENTO_DIR}/app:#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
+#	sed_in_file "s#/html/app#/html/${MAGENTO_DIR}/app#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
+#	sed_in_file "s#/vendor#/${MAGENTO_DIR}/vendor#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
+#	sed_in_file "s#SYNC_SOURCE_BASE_PATH=/sync#SYNC_SOURCE_BASE_PATH=/sync/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
+#	sed_in_file "s#SYNC_DESTINATION_BASE_PATH=/var/www/html#SYNC_DESTINATION_BASE_PATH=/var/www/html/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
     echo "--------------------"
     echo "------ ${DOCKERGENTO_CONFIG_DIR}/image/app-volumes/Dockerfile ------"
     sed_in_file "s#/var/www/html#/var/www/html/${MAGENTO_DIR}#w /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/image/app-volumes/Dockerfile"
@@ -86,9 +86,9 @@ if [ "${COMPOSER_DIR}" != "." ]; then
 	sed_in_file "s#/composer.json#/${COMPOSER_DIR}/composer.json#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
 	sed_in_file "s#/composer.lock#/${COMPOSER_DIR}/composer.lock#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
     echo "--------------------"
-    echo "------ ${DOCKER_COMPOSE_FILE_WINDOWS} ------"
-	sed_in_file "s#/composer.json#/${COMPOSER_DIR}/composer.json#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
-	sed_in_file "s#/composer.lock#/${COMPOSER_DIR}/composer.lock#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
+#    echo "------ ${DOCKER_COMPOSE_FILE_WINDOWS} ------"
+#	sed_in_file "s#/composer.json#/${COMPOSER_DIR}/composer.json#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
+#	sed_in_file "s#/composer.lock#/${COMPOSER_DIR}/composer.lock#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
     echo "--------------------"
     printf "${COLOR_RESET}\n"
 fi
@@ -145,7 +145,7 @@ if [[ -f ".git/HEAD" ]]; then
     GIT_FILES=$(git ls-files | awk -F / '{print $1}' | uniq)
     if [[ "${GIT_FILES}" != "" ]]; then
         add_git_bind_paths_in_file "${GIT_FILES}" "${DOCKER_COMPOSE_FILE_MAC}" ":delegated"
-        add_git_bind_paths_in_file "${GIT_FILES}" "${DOCKER_COMPOSE_FILE_WINDOWS}" ""
+#        add_git_bind_paths_in_file "${GIT_FILES}" "${DOCKER_COMPOSE_FILE_WINDOWS}" ""
     else
         echo " > Skipped. There are no files added in this repository"
     fi
