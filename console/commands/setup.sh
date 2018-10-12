@@ -117,6 +117,7 @@ add_git_bind_paths_in_file()
     while read FILENAME_IN_GIT; do
         if [[ "${MAGENTO_DIR}" == "${FILENAME_IN_GIT}" ]] || \
             [[ "${MAGENTO_DIR}" == "${FILENAME_IN_GIT}/"* ]] || \
+            [[ "${FILENAME_IN_GIT}" == "vendor" ]] || \
             [[ "${FILENAME_IN_GIT}" == "${DOCKER_COMPOSE_FILE%.*}"* ]]; then
             continue
         fi
