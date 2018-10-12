@@ -4,7 +4,7 @@ services:
   app-volumes:
     build: ../config/dockergento/image/app-volumes
     volumes: &appvolumes
-      - ~/.composer:/var/www/.composer
+      - ../.composer:/var/www/.composer
       - sockdata:/sock
 
   app:

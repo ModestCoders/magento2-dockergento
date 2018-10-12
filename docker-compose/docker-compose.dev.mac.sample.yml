@@ -4,7 +4,7 @@ services:
   app-volumes:
     build: ../config/dockergento/image/app-volumes
     volumes: &appvolumes-mac
-      - ~/.composer:/var/www/.composer:delegated
+      - ../.composer:/var/www/.composer:delegated
       - workspace:/var/www/html
       - ./app:/var/www/html/app:delegated
       - ./.git:/var/www/html/.git:delegated

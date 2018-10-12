@@ -62,10 +62,7 @@ See [dockergento workflow](#workflow) for a better understanding about whole dev
 
 1. Configure your docker `File Sharing` settings
 
-	* `/Users/<user>/.composer`
 	* `/Users/<user>/Sites`
-
-	**NOTE:** You do not need to have `Composer` installed. You only need to create a `.composer` folder in your computer, so it can be used by containers to cache composer dependecies instead of downloading them everytime.
 
 #### System detailed info 
 
