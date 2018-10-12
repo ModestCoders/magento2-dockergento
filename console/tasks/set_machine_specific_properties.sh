@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
 UNAMEOUT="$(uname -s)"
 case "${UNAMEOUT}" in

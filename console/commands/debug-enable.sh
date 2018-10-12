@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
 ${TASKS_DIR}/start_service_if_not_running.sh ${SERVICE_PHP}
 

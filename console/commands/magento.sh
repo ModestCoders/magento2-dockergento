@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
 ${COMMANDS_DIR}/exec.sh php ${MAGENTO_DIR}/bin/magento "$@"

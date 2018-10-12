@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
 # IMPORTANT:
 # mirror-container supports only dir copies for now.

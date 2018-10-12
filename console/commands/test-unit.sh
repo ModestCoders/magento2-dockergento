@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
 ${COMMANDS_DIR}/exec.sh ${BIN_DIR}/phpunit --config ${MAGENTO_DIR}/dev/tests/unit/phpunit.xml "$@"

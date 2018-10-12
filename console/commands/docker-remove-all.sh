@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
 read -p "Remove all docker data from all your projects (y/n [n])? " ANSWER
 if [ "${ANSWER}" != "y" ]; then

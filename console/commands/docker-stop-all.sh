@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
 RUNNING_CONTAINERS=$(docker ps -q)
 if [[ ${RUNNING_CONTAINERS} != "" ]]; then

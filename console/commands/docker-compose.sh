@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
 ${DOCKER_COMPOSE} "$@"

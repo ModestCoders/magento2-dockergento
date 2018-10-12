@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
 printf "${GREEN}Starting containers in detached mode${COLOR_RESET}\n"
 
