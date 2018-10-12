@@ -30,38 +30,6 @@ sync_all_from_container_to_host()
     ${COMMANDS_DIR}/start.sh
 }
 
-sync_vendor_updates_into_host()
-{
-    COMPOSER_OUTPUT=$1
-    source ${TASKS_DIR}/composer_output_parser.sh
-
-    UPDATES_OUTPUT=$(getUpdatesFromOutput "${COMPOSER_OUTPUT}")
-    if [ "$UPDATES_OUTPUT" == "" ]; then
-        printf "\n${GREEN}No dependencies updated. Nothing to Sync${COLOR_RESET}\n"
-        return 0
-    fi
-
-    PATHS_TO_UPDATE=$(getUpdatedDependencies "${UPDATES_OUTPUT}" "vendor/")
-    if [ "${PATHS_TO_UPDATE}" != "" ]; then
-        printf "\n${GREEN}Starting sync of updated dependencies${COLOR_RESET}\n"
-        ${COMMANDS_DIR}/mirror-container.sh -f ${PATHS_TO_UPDATE} | grep "copying"
-    fi
-
-    PATHS_TO_REMOVE=$(getRemovedDependencies "$UPDATES_OUTPUT" "vendor/")
-    if [ "${PATHS_TO_REMOVE}" != "" ]; then
-        printf "\n${GREEN}Deleting removed dependencies${COLOR_RESET}\n"
-        for PATH_TO_REMOVE in ${PATHS_TO_REMOVE}
-        do
-            if [[ ${PATH_TO_REMOVE} != *"vendor"* ]]; then
-                printf "${RED}Dependency cannot be removed: '${PATH_TO_REMOVE}'${COLOR_RESET}\n"
-                continue
-            fi
-            echo " > rm -rf ${PATH_TO_REMOVE}"
-            rm -rf ${PATH_TO_REMOVE}
-        done
-    fi
-}
-
 if [[ "$#" != 0 && "$1" == "create-project" ]]; then
     printf "${RED}create-project is not compatible with dockergento. Please use:${COLOR_RESET}\n"
         echo ""
@@ -90,12 +58,8 @@ then
     fi
 
     mirror_vendor_host_into_container
-    COMPOSER_OUTPUT=$(${COMMANDS_DIR}/exec.sh composer "$@" | tee /dev/tty)
-    if [[ ${MAGENTO_EXISTS_IN_HOST} == false ]]; then
-        sync_all_from_container_to_host
-    else
-        sync_vendor_updates_into_host "${COMPOSER_OUTPUT}"
-    fi
+    ${COMMANDS_DIR}/exec.sh composer "$@"
+    sync_all_from_container_to_host
 else
     ${COMMANDS_DIR}/exec.sh composer "$@"
 fi
