@@ -34,7 +34,7 @@ if [ "${EXEC_OPTIONS}" != "" ]; then
     DOCKER_COMPOSE_EXEC="${DOCKER_COMPOSE_EXEC} ${EXEC_OPTIONS}"
 fi
 if [[ "${MACHINE}" == "windows" && ${TTY_DISABLE} == false ]]; then
-    USE_WINPTY=$(command -v winpty >/dev/null 2>&1 && test -t 1 && echo true || echo false)
+    USE_WINPTY=$(command -v winpty && test -t 1 && echo true || echo false)
     if [[ ${USE_WINPTY} == true ]]; then
         DOCKER_COMPOSE_EXEC="winpty ${DOCKER_COMPOSE_EXEC}"
     fi
