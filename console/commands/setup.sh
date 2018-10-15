@@ -57,18 +57,14 @@ if [ "${MAGENTO_DIR}" != "." ]; then
     echo "------ ${DOCKER_COMPOSE_FILE_MAC} ------"
 	sed_in_file "s#/app:#/${MAGENTO_DIR}/app:#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
 	sed_in_file "s#/vendor#/${MAGENTO_DIR}/vendor#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
-	sed_in_file "s#SYNC_SOURCE_BASE_PATH=/sync#SYNC_SOURCE_BASE_PATH=/sync/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
-	sed_in_file "s#SYNC_DESTINATION_BASE_PATH=/var/www/html#SYNC_DESTINATION_BASE_PATH=${WORKDIR_PHP}/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
     echo "--------------------"
 #    echo "------ ${DOCKER_COMPOSE_FILE_WINDOWS} ------"
 #	sed_in_file "s#/app:#/${MAGENTO_DIR}/app:#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 #	sed_in_file "s#/html/app#/html/${MAGENTO_DIR}/app#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 #	sed_in_file "s#/vendor#/${MAGENTO_DIR}/vendor#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
-#	sed_in_file "s#SYNC_SOURCE_BASE_PATH=/sync#SYNC_SOURCE_BASE_PATH=/sync/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
-#	sed_in_file "s#SYNC_DESTINATION_BASE_PATH=/var/www/html#SYNC_DESTINATION_BASE_PATH=${WORKDIR_PHP}/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 #    echo "--------------------"
     echo "------ ${DOCKERGENTO_CONFIG_DIR}/nginx/conf/default.conf ------"
-    sed_in_file "s#/var/www/html#${WORKDIR_PHP}/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/nginx/conf/default.conf"
+    sed_in_file "s#/var/www/html#$/var/www/html/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/nginx/conf/default.conf"
     echo "--------------------"
     printf "${COLOR_RESET}"
 fi
@@ -119,7 +115,7 @@ add_git_bind_paths_in_file()
             [[ "${FILENAME_IN_GIT}" == "${DOCKER_COMPOSE_FILE%.*}"* ]]; then
             continue
         fi
-        NEW_PATH="./${FILENAME_IN_GIT}:${WORKDIR_PHP}/${FILENAME_IN_GIT}"
+        NEW_PATH="./${FILENAME_IN_GIT}:/var/www/html/${FILENAME_IN_GIT}"
         BIND_PATH_EXISTS=$(grep -q -e "${NEW_PATH}" ${FILE_TO_EDIT} && echo true || echo false)
         if [ "${BIND_PATH_EXISTS}" == true ]; then
             continue

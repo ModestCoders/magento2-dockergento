@@ -35,7 +35,7 @@ dockergento grunt watch
 If you are developing code in a vendor module, you need to start unison watcher to sync files between host and container.
 
 ```
-dockergento watch vendor/<vendor_name>/<module_name>
+dockergento watch <magento_dir>/vendor/<vendor_name>/<module_name>
 ```
 
 #### 6. xdebug
