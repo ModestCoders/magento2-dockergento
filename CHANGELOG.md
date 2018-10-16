@@ -11,11 +11,16 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
-## [3.0.0] - 25-09-2018
+## [3.0.0] - 16-10-2018
 ### Added
 
-* Multiple OS compatibility (Linux, Mac OSX and Windows)
+* Multiple OS compatibility (Linux, Mac OSX)
 * Include `magento2-dockergento-console` directly in this repository.
+
+### Fixed
+
+* Projects with vendor in repository were not working on MAC OSX
+* Magento 2 github project was not working on MAC OSX
 
 ## [2.1.0] - 21-09-2018
 ### Changed

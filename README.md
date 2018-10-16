@@ -1,11 +1,22 @@
-# Magento 2 Dockergento
+We’ve worked very hard to implement this tool. If you find it useful and want to invite us for a beer, just click on the donation button. Thanks! 🍺 
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](juan.jalogut@gmail.com)
 
+# Magento 2 Dockergento
+
+Plug and play Magento 2 dev environments with docker. This tool is just a bash script ready to use in Linux and Mac to be able to use docker with best native performance.
+
+While performance might no be a problem for Linux, using this tool is the only way you can overcome performance issues on Mac. Dockergento allows you to have different configuration for each system while using the same workflow. So your whole team can work the same way no matter which computer they are using. It just works!
+
+## Supported Systems
+
+* Mac
+* Linux
+
 ## Performance Comparison
 
-#### Native performance in all OS systems (Linux, Mac and Windows)
-#### Up to 7x faster development experience on Mac and Windows compare to standard docker setups.
+#### Native performance in Linux and Mac
+#### Up to 7x faster development experience on Mac compare to standard docker setups.
 
 <a href="https://youtu.be/qdUBuDCzHaA" target="_blank">
   <img src="docs/img/benchmark_comparison_video.png" alt="Dockergento speed comparison" width="320" height="180" border="5" />
@@ -15,114 +26,99 @@
 
 * [Benchmarks: Dockergento vs Standard Docker](docs/benchmarks.md)
 
-## Motivation
+#### Learn more about how that is achieved
 
-This project aims to offer native performance on all OS systems for users that want to use docker on development. That means same speed as local setups even on Mac and Windows.
-
-## Main Features 
-	
-### Overcome Docker for Mac and Windows performance issues
-
-<details>
-<summary>Open to read issue explanation</summary>
-
-From docker for mac documentation: https://docs.docker.com/docker-for-mac/troubleshoot/#known-issues
-
-There are a number of issues with the performance of directories bind-mounted with osxfs. In particular, writes of small blocks, and traversals of large directories are currently slow. Additionally, containers that perform large numbers of directory operations, such as repeated scans of large directory trees, may suffer from poor performance. Applications that behave in this way include:
-
-* rake
-* ember build
-* Symfony
-* Magento
-* Zend Framework
-* PHP applications that use Composer to install dependencies in a vendor folder
-
-As a work-around for this behavior, you can put vendor or third-party library directories in Docker volumes, perform temporary file system operations outside of osxfs mounts, and use third-party tools like Unison or rsync to synchronize between container directories and bind-mounted directories. We are actively working on osxfs performance using a number of different techniques. To learn more, see the topic on Performance issues, solutions, and roadmap.
-
-</details>
-
-**Solution:**
-
-* Set full magento app inside a named volume `magento`
-* Synchronise only git repository files between host and container.
-* Everything else is not synchronised, so performance is same as in local setups.
-
-**How do you get the code that is not synchronised in your host?**
-
-Even if not synchronised, it is needed to have magento and vendor code in your host. Not only for developing but also for xdebug.
-
-To sync that code seamlessly, [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console) uses `docker cp` automatically when you execute relevant commands like `dockergento composer` or `dockergento start`, so you do not need to care about that.
-
-On the other hand, for those that implement modules inside vendor, we also provide a `unison` container that watches and syncs changes in background when you develop inside vendor.
-
-See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.
+* [Overcoming Docker for Mac performance issues](docs/overcome_performance_issues.md)
 
 
-## Preconditions
+## Installation
 
-1. Configure your docker `File Sharing` settings
+You only need 3 things on your local machine: `git`, `docker` and `dockergento`
 
-	* `/Users/<user>/Sites`
+### Install Docker
 
-#### System detailed info 
+Follow the installation steps for your system.
 
 <details>
 <summary>Mac</summary>
 	
-![File Sharing Configuration](docs/img/file_sharing.png)
-	
-Optionally you can also apply these performance tweaks
+1. Install Docker on [Mac](https://docs.docker.com/docker-for-mac/install/)
 
-* [http://markshust.com/2018/01/30/performance-tuning-docker-mac](http://markshust.com/2018/01/30/performance-tuning-docker-mac)
+2. Configure `File Sharing` settings for the folder that contains your projects
 
-</details>
+	![File Sharing Configuration](docs/img/file_sharing.png)
+	
+3. Optionally you can also apply these performance tweaks
 
-<details>
-<summary>Windows</summary>
-	
-TODO
-![File Sharing Configuration](docs/img/todo)
-	
+	* [http://markshust.com/2018/01/30/performance-tuning-docker-mac](http://markshust.com/2018/01/30/performance-tuning-docker-mac)
+
 </details>
 	
 <details>
 <summary>Linux</summary>
 	
-TODO
-![File Sharing Configuration](docs/img/todo)
+1. Install docker
+
+	* Install Docker on [Debian](https://docs.docker.com/engine/installation/linux/docker-ce/debian/)
+	* Install Docker on [Ubuntu](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/)
+	* Install Docker on [CentOS](https://docs.docker.com/engine/installation/linux/docker-ce/centos/)
+
+2. Configure permissions
 	
+	* [Manage Docker as a non-root user](https://docs.docker.com/install/linux/linux-postinstall/)
+
 </details>
 
-## Installation
+### Install dockergento console
 
-1. Install [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console)
-
-2. Setup docker in your project:
+1. Clone this repo
 
     ```
-    cd <path_to_your_project>
-    dockergento setup
+    git clone https://github.com/ModestCoders/magento2-dockergento.git
     ```
 
-3. [Optional] If you have a multi-store magento, you need to add your website codes to the ngnix configuration as follows:
+2. Add `dockergento` bin into your `$PATH`
 
-	<details>
-	<summary>Open info about ngnix configuration</summary>
+    ```
+    sudo ln -s $(pwd)/magento2-dockergento/bin/dockergento /usr/local/bin/
+    ```
+    
+3. Open a new terminal tab/window and check that `dockergento` works
 
-	* `config/dockergento/nginx/conf/default.conf`
-	
 	```
-	# WEBSITES MAPPING
-	map $http_host $MAGE_RUN_CODE {
-
-		default    base;
-		## For multi-store configuration add here your domain-website codes
-		dominio-es.lo    es;
-		dominio-ch.lo    ch;
-		dominio-de.lo    de;
-	}
+	which dockergento
+	dockergento
 	```
-	</details>
+
+</details>
+
+
+## Project Setup
+
+Depending the type of project, you can use one of the following setups:
+
+### Dockerize existing project
+
+```
+cd <your_project>
+dockergento setup
+```
+
+### New project
+
+```
+mkdir <new_project_name> && cd <new_project_name>
+dockergento setup
+dockergento create-project
+```
+
+### Magento 2 github for contribution
+
+```
+git clone https://github.com/magento/magento2.git
+cd magento2
+dockergento setup
+```
 
 ## Usage
 
@@ -135,11 +131,42 @@ sudo vim /etc/hosts
 // Add -> 127.0.0.1 <your-domain>
 ```
 
+Open `<your-domain>` in the browser 🎉
+
 ### <a name="workflow"></a> Workflow
 
 See detailed documentation about development workflow with dockergento
 
-* `magento2-dockergento-console` > [Development Workflow](https://github.com/ModestCoders/magento2-dockergento-console/blob/master/docs/workflow.md)
+* [Development Workflow](docs/workflow.md)
+
+## Multi Store
+
+If you have a multi-store magento, you need to add your website codes to the ngnix configuration as follows:
+
+<details>
+<summary>Open info about ngnix configuration</summary>
+
+Edit `config/dockergento/nginx/conf/default.conf`
+	
+```
+# WEBSITES MAPPING
+map $http_host $MAGE_RUN_CODE {
+
+	default    base;
+	## For multi-store configuration add here your domain-website codes
+	dominio-es.lo    es;
+	dominio-ch.lo    ch;
+	dominio-de.lo    de;
+}
+```
+	
+You need to restart dockergento to apply the new configuration:
+	
+```
+dockergento restart
+```
+	
+</details>
 
 ## Xdebug
 
@@ -152,6 +179,14 @@ See detailed documentation about development workflow with dockergento
 ## Docker Images
 
 * [Docker Images List](docs/docker_images.md)
+
+## Customizations
+
+* [Customizations](docs/customizations.md)
+
+## Troubleshooting
+
+* [Troubleshooting](docs/troubleshooting.md)
 
 ## ChangeLog
 

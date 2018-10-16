@@ -1,12 +1,20 @@
 # Grumphp Setup
 
-If you want to use `grumphp` in your `git hooks`, the `grumphp` commands need to be executed inside the `phpfpm` container.
+If you want to use `grumphp` together with `git hooks`, the `grumphp` commands need to be executed inside the `phpfpm` container. To configure that, do the following:
 
-This project provides 2 custom `git hook` templates for that:
+#### 1. Custom Grumphp hook templates
 
-* [See config/grumphp/hooks](../config/grumphp/hooks)
+Copy provided `grumphp` templates into your project 
 
-Copy them into your project and add this in your `composer.json`:
+* See [config/grumphp/hooks](../config/grumphp/hooks)
+
+```
+cp magento2-dockergento/config/grumphp/hooks <your_project>/config/grumphp/hooks
+```
+
+#### 2. Overwrite default ones
+
+Add this in your `composer.json`:
 
 ```
 "scripts": {

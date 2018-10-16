@@ -1,7 +1,6 @@
 # Workflow
 
-The following guide shows you the normal workflow using [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console). If you want to see the real docker commands that are executed, just open `Docker commands` info at each section.
-
+The following guide shows you the normal development workflow using dockergento.
 
 #### 1. Start containers
 
@@ -17,7 +16,7 @@ dockergento composer <install/update>
 
 #### 3. Develop code normally inside `magento/app`
 
-While developing you might need to execute magento commands like `cache:clear` for example
+While developing you might need to execute magento commands like `cache:flush` for example
 
 ```
 dockergento magento <command>
@@ -30,7 +29,7 @@ dockergento grunt exec:<theme>
 dockergento grunt watch
 ```
 
-#### 5. Working on vendor modules [Mac and Windows only]
+#### 5. Working on vendor modules [Mac only]
 
 If you are developing code in a vendor module, you need to start unison watcher to sync files between host and container.
 
@@ -48,9 +47,9 @@ dockergento watch <magento_dir>/vendor/<vendor_name>/<module_name>
 		
 * Configure xdebug in PHPStorm (Only first time)
 
-	* [PHPStorm + Xdebug Setup](https://github.com/ModestCoders/magento2-dockergento/blob/master/docs/xdebug_phpstorm.md)
+	* [PHPStorm + Xdebug Setup](./xdebug_phpstorm.md)
 
-* Sync generated **[Mac and Windows only]** 
+* Sync generated **[Mac only]** 
 
 	Because this folder is not binded for performance reasons, you need to sync it manually, so debugger finds the code in your host.
 

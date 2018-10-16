@@ -1,4 +1,4 @@
-# Magento Setup Install Command
+# Magento Setup Install Commands
 
 ```
 dockergento magento setup:install \
