@@ -138,7 +138,7 @@ sudo vim /etc/hosts
 // Add -> 127.0.0.1 <your-domain>
 ```
 
-Open `<your-domain>` in the browser 🎉
+Open `http://<your-domain>` in the browser 🎉
 
 ### Workflow
 
