@@ -14,13 +14,37 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 ## [3.0.0] - 16-10-2018
 ### Added
 
-* Multiple OS compatibility (Linux, Mac OSX)
+* Multiple OS compatibility (Linux, Mac)
 * Include `magento2-dockergento-console` directly in this repository.
 
 ### Fixed
 
-* Projects with vendor in repository were not working on MAC OSX
-* Magento 2 github project was not working on MAC OSX
+* Projects with vendor in repository were not working on Mac
+* Magento 2 github project was not working on Mac
+
+### Backward incompatible changes
+
+* `dockergento` needs now 2 `docker-compose` files. The base one and the OS specific.
+* `app` service has been renamed to `nginx`
+* `magento2-dockergento-console` repository has been removed and its code has been added directly into this repo.
+* Debug commands have been renamed to `debug-on` and `debug-off`
+* `app-volumes` service has been removed.
+* New images used for `nginx` and `php`
+	* `modestcoders/nginx:1.13`
+	* `modestcoders/php:7.1-fpm-1` 
+
+### Upgrade steps
+1. Create a backup of your current config:
+	
+	```
+	mv config/dockergento config/dockergento-backup
+	mv docker-compose.yml docker-compose.yml.backup
+	```
+
+2. Run `dockergento setup` inside your project
+3. Edit volumes in `docker-compose.dev.mac.yml` as you had it before. 
+4. Edit `nginx` configuration in `config/dockergento/nginx/conf/default.conf`
+5. Edit `config/dockergento/properties` if needed.
 
 ## [2.1.0] - 21-09-2018
 ### Changed
