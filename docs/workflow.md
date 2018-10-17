@@ -42,7 +42,7 @@ dockergento watch <magento_dir>/vendor/<vendor_name>/<module_name>
 * Enable xdebug
 
 	```
-	dockergento debug-enable
+	dockergento debug-on
 	```
 		
 * Configure xdebug in PHPStorm (Only first time)
@@ -68,7 +68,7 @@ dockergento watch <magento_dir>/vendor/<vendor_name>/<module_name>
 	Environment is 10x slower when xdebug is enabled!
 
 	```
-	dockergento debug-disable
+	dockergento debug-off
 	```
  
 #### 7. Execute tests

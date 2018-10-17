@@ -5,7 +5,7 @@
 Xdebug needs to be enabled inside the `phpfpm` container. 
 
 ```
-dockergento debug-enable
+dockergento debug-on
 ```
 
 ## PHPStorm configuration
