@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  phpfpm:
+    volumes: &appvolumes-mac
+      - ../.composer:/var/www/.composer:delegated
+      - workspace:/var/www/html
+      - ./app:/var/www/html/app:delegated
+      - ./.git:/var/www/html/.git:delegated
+      - ./config:/var/www/html/config:delegated
+      - ./composer.json:/var/www/html/composer.json:delegated
+      - ./composer.lock:/var/www/html/composer.lock:delegated
+      # {FILES_IN_GIT}
+
+  nginx:
+    volumes: *appvolumes-mac
+
+  node:
+    volumes: *appvolumes-mac
+
+  unison:
+    image: modestcoders/unison:2.51.2
+    volumes:
+      - workspace:/var/www/html
+      - ./vendor:/sync/vendor
+    environment:
+      - SYNC_SOURCE_BASE_PATH=/sync
+      - SYNC_DESTINATION_BASE_PATH=/var/www/html
+      - SYNC_MAX_INOTIFY_WATCHES=60000
+    depends_on:
+      - phpfpm
+    privileged: true
+
+volumes:
+  workspace:

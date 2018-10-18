@@ -20,7 +20,7 @@ DOCKER_PHP_CONTAINER_ID=$(docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q phpfpm)
 # Remove single quotes from hook_command. It is needed to use it inside the docker exec
 HOOK_COMMAND=$(echo "$(HOOK_COMMAND)" | sed "s/'//g")
 
-printf "%s\n" "${DIFF}" >> "${DIFF_FILE}" && docker cp grumphp-diff ${DOCKER_PHP_CONTAINER_ID}:"/tmp/${DIFF_FILE}"
+printf "%s\n" "${DIFF}" > "${DIFF_FILE}" && docker cp grumphp-diff ${DOCKER_PHP_CONTAINER_ID}:"/tmp/${DIFF_FILE}"
 
 # Run GrumPHP
 docker exec -t \

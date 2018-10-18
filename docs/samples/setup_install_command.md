@@ -1,9 +1,7 @@
-# Magento Commands
-
-## Magento Setup
+# Magento Setup Install Commands
 
 ```
-docker-compose exec phpfpm bin/magento setup:install \
+dockergento magento setup:install \
   --db-host=db \
   --db-name=magento \
   --db-user=magento \
@@ -21,14 +19,6 @@ docker-compose exec phpfpm bin/magento setup:install \
   --use-rewrites=1
 ```
 
-## Developer mode
-
 ```
-docker-compose exec phpfpm bin/magento deploy:mode:set developer
-```
-
-## Purge all
-
-```
-docker-compose exec phpfpm sh -c "rm -rf var/cache/* generated/* pub/static/* var/view_preprocessed/* var/page_cache/*"
+dockergento magento deploy:mode:set developer
 ```

@@ -25,7 +25,7 @@
   ],
   "require": {
     "n98/magerun2": "^1.4",
-    "magento/product-community-edition": "2.2.5",
+    "magento/product-community-edition": "2.2.6",
     "composer/composer": "@alpha",
     "cweagans/composer-patches": "^1.6"
   },

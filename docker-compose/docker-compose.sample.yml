@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  phpfpm:
+    image: modestcoders/php:7.1-fpm-1
+    volumes: &appvolumes
+      - ../.composer:/var/www/.composer
+      - sockdata:/sock
+      - ./config/dockergento/nginx/conf/default.conf:/var/www/conf/nginx/default.conf
+    environment:
+      PHP_IDE_CONFIG: serverName=localhost
+    depends_on:
+      - db
+
+  nginx:
+    image: modestcoders/nginx:1.13
+    ports:
+      - 80:8000
+    volumes: *appvolumes
+    depends_on:
+      - phpfpm
+
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: magento
+      MYSQL_USER: magento
+      MYSQL_PASSWORD: magento
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  node:
+    image: modestcoders/node-php:node8-php7.1
+    volumes: *appvolumes
+    depends_on:
+      - phpfpm
+
+volumes:
+  dbdata:
+  sockdata:

@@ -1,10 +1,10 @@
 # Magento 2 Dockergento
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](juan.jalogut@gmail.com)
+Plug and play Magento 2 dev environments with docker. **Fastest performance ever** on Mac and Linux.
 
 ## Performance Comparison
 
-#### Up to 7x faster development experience on OSX
+#### Up to 7x faster development experience on Mac compare to standard docker setups.
 
 <a href="https://youtu.be/qdUBuDCzHaA" target="_blank">
   <img src="docs/img/benchmark_comparison_video.png" alt="Dockergento speed comparison" width="320" height="180" border="5" />
@@ -14,91 +14,116 @@
 
 * [Benchmarks: Dockergento vs Standard Docker](docs/benchmarks.md)
 
-## Motivation
+#### Learn more about how that is achieved
 
-This project aims to offer a good performance solution for Mac users that want to use docker on development.
-This is a docker setup optimised for Magento 2 on Mac. It has same performance as Linux or local setups.
+* [Overcoming Docker for Mac performance issues](docs/overcome_performance_issues.md)
 
-## Main Features
+---
 
-### Overcome Docker for Mac performance issue
+## What is dockergento?
 
-<details>
-<summary>Open to read issue explanation</summary>
+Dockergento is just a bash script ready to use in Linux and Mac to be able to use docker with best native performance.
 
-From docker for mac documentation: https://docs.docker.com/docker-for-mac/troubleshoot/#known-issues
+While performance might no be a problem for Linux, using this tool is the only way you can overcome performance issues on Mac. Dockergento allows you to have different configuration for each system while using the same workflow. So your whole team can work the same way no matter which computer they are using. It just works!
 
-There are a number of issues with the performance of directories bind-mounted with osxfs. In particular, writes of small blocks, and traversals of large directories are currently slow. Additionally, containers that perform large numbers of directory operations, such as repeated scans of large directory trees, may suffer from poor performance. Applications that behave in this way include:
+## Supported Systems
 
-* rake
-* ember build
-* Symfony
-* Magento
-* Zend Framework
-* PHP applications that use Composer to install dependencies in a vendor folder
+* Mac
+* Linux
 
-As a work-around for this behavior, you can put vendor or third-party library directories in Docker volumes, perform temporary file system operations outside of osxfs mounts, and use third-party tools like Unison or rsync to synchronize between container directories and bind-mounted directories. We are actively working on osxfs performance using a number of different techniques. To learn more, see the topic on Performance issues, solutions, and roadmap.
+---
 
-</details>
-
-**Solution:**
-
-* Set full magento app inside a named volume `magento`
-* Synchronise only git repository files between host and container.
-* Everything else is not synchronised, so performance is same as in local setups.
-
-**How do you get the code that is not synchronised in your host?**
-
-Even if not synchronised, it is needed to have magento and vendor code in your host. Not only for developing but also for xdebug.
-
-To sync that code seamlessly, [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console) uses `docker cp` automatically when you execute relevant commands like `dockergento composer` or `dockergento start`, so you do not need to care about that.
-
-On the other hand, for those that implement modules inside vendor, we also provide a `unison` container that watches and syncs changes in background when you develop inside vendor.
-
-See [dockergento workflow](#workflow) for a better understanding about whole development process with dockergento.
-
-## Preconditions
-
-1. Configure your docker `File Sharing` settings
-
-	![File Sharing Configuration](docs/img/file_sharing.png)
-	
-	NOTE: You do not need to have `Composer` installed. You only need to create a `.composer` folder in your computer, so it can be used by containers to cache composer dependecies instead of downloading them everytime.
-
-2. Optionally you can also apply these performance tweaks
-
-	* [http://markshust.com/2018/01/30/performance-tuning-docker-mac](http://markshust.com/2018/01/30/performance-tuning-docker-mac)
 
 ## Installation
 
-1. Install [magento2-dockergento-console](https://github.com/ModestCoders/magento2-dockergento-console)
+You only need 3 things on your local machine: `git`, `docker` and `dockergento`
 
-2. Setup docker in your project:
+### Install Docker
 
-    ```
-    cd <path_to_your_project>
-    dockergento setup
-    ```
+Follow the installation steps for your system.
 
-3. [Optional] If you have a multi-store magento, you need to add your website codes to the ngnix configuration as follows:
-
-	<details>
-	<summary>Open info about ngnix configuration</summary>
-
-	* `config/docker/image/nginx/conf/default.conf`
+<details>
+<summary>Mac</summary>
 	
-	```
-	# WEBSITES MAPPING
-	map $http_host $MAGE_RUN_CODE {
+1. Install Docker on [Mac](https://docs.docker.com/docker-for-mac/install/)
 
-		default    base;
-		## For multi-store configuration add here your domain-website codes
-		dominio-es.lo    es;
-		dominio-ch.lo    ch;
-		dominio-de.lo    de;
-	}
+2. Configure `File Sharing` settings for the folder that contains your projects
+
+	![File Sharing Configuration](docs/img/file_sharing.png)
+	
+3. Optionally you can also apply these performance tweaks
+
+	* [http://markshust.com/2018/01/30/performance-tuning-docker-mac](http://markshust.com/2018/01/30/performance-tuning-docker-mac)
+
+</details>
+	
+<details>
+<summary>Linux</summary>
+	
+1. Install docker
+
+	* Install Docker on [Debian](https://docs.docker.com/engine/installation/linux/docker-ce/debian/)
+	* Install Docker on [Ubuntu](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/)
+	* Install Docker on [CentOS](https://docs.docker.com/engine/installation/linux/docker-ce/centos/)
+
+2. Configure permissions
+	
+	* [Manage Docker as a non-root user](https://docs.docker.com/install/linux/linux-postinstall/)
+
+</details>
+
+### Install dockergento console
+
+1. Clone this repo
+
+    ```
+    git clone https://github.com/ModestCoders/magento2-dockergento.git
+    ```
+
+2. Add `dockergento` bin into your `$PATH`
+
+    ```
+    sudo ln -s $(pwd)/magento2-dockergento/bin/dockergento /usr/local/bin/
+    ```
+    
+3. Open a new terminal tab/window and check that `dockergento` works
+
 	```
-	</details>
+	which dockergento
+	dockergento
+	```
+
+</details>
+
+
+## Project Setup
+
+Depending the type of project, you can use one of the following setups:
+
+### Dockerize existing project
+
+```
+cd <your_project>
+dockergento setup
+```
+
+### New project
+
+```
+mkdir <new_project_name> && cd <new_project_name>
+dockergento setup
+dockergento create-project
+```
+
+### Magento 2 github for contribution
+
+```
+git clone https://github.com/magento/magento2.git
+cd magento2
+dockergento setup
+```
+
+---
 
 ## Usage
 
@@ -111,23 +136,29 @@ sudo vim /etc/hosts
 // Add -> 127.0.0.1 <your-domain>
 ```
 
-### <a name="workflow"></a> Workflow
+Open `http://<your-domain>` in the browser 🎉
+
+### Workflow
 
 See detailed documentation about development workflow with dockergento
 
-* `magento2-dockergento-console` > [Development Workflow](https://github.com/ModestCoders/magento2-dockergento-console/blob/master/docs/workflow.md)
+* [Development Workflow](docs/workflow.md)
 
-## Xdebug
+---
 
+## More Documentation
+
+* [Multi store configuration](docs/multi_store.md)
 * [PHPStorm + Xdebug Setup](docs/xdebug_phpstorm.md)
+* [Grumphp setup](docs/grumphp_setup.md)
+* [Docker images list](docs/docker_images.md)
+* [Other customizations](docs/customizations.md)
 
-## Grumphp
+## Troubleshooting
 
-* [Grumphp Setup](docs/grumphp_setup.md)
+* [Troubleshooting](docs/troubleshooting.md)
 
-## Docker Images
-
-* [Docker Images List](docs/docker_images.md)
+---
 
 ## ChangeLog
 
@@ -139,6 +170,12 @@ See detailed documentation about development workflow with dockergento
 * [Daniel Lozano](https://github.com/danielozano)
 * [Contributors](https://github.com/ModestCoders/magento2-dockergento/graphs/contributors)
 
+## Donations 🙏
+
+We’ve worked very hard to implement this tool. If you find it useful and want to invite us for a beer, just click on the donation button. Thanks! 🍺 
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](juan.jalogut@gmail.com)
+
 ## Resources
 
 This project has been possible thanks to the following resources:
@@ -149,7 +186,7 @@ This project has been possible thanks to the following resources:
 
 ## Licence
 
-[GNU General Public License, version 3 (GPLv3)](http://opensource.org/licenses/gpl-3.0)
+* [GNU General Public License, version 3 (GPLv3)](http://opensource.org/licenses/gpl-3.0)
 
 ## Copyright
 (c) ModestCoders

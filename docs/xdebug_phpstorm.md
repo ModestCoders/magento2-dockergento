@@ -4,11 +4,9 @@
 
 Xdebug needs to be enabled inside the `phpfpm` container. 
 
-* You can do that as explained in `magento2-dockergento-console` -> [enable xdebug](https://github.com/ModestCoders/magento2-dockergento-console/blob/master/docs/workflow.md#6-xdebug)
-
-	```
-	dockergento debug-enable
-	```
+```
+dockergento debug-on
+```
 
 ## PHPStorm configuration
 

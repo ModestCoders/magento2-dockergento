@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  phpfpm:
+    volumes: &appvolumes-linux
+      - .:/var/www/html
+
+  nginx:
+    volumes: *appvolumes-linux
+
+  node:
+    volumes: *appvolumes-linux
