@@ -64,7 +64,7 @@ if [ "${MAGENTO_DIR}" != "." ]; then
 #	sed_in_file "s#/vendor#/${MAGENTO_DIR}/vendor#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_WINDOWS}"
 #    echo "--------------------"
     echo "------ ${DOCKERGENTO_CONFIG_DIR}/nginx/conf/default.conf ------"
-    sed_in_file "s#/var/www/html#$/var/www/html/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/nginx/conf/default.conf"
+    sed_in_file "s#/var/www/html#/var/www/html/${MAGENTO_DIR}#gw /dev/stdout" "${DOCKERGENTO_CONFIG_DIR}/nginx/conf/default.conf"
     echo "--------------------"
     printf "${COLOR_RESET}"
 fi
