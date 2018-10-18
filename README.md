@@ -1,8 +1,6 @@
-# Dockergento
+# Magento 2 Dockergento
 
 Plug and play Magento 2 dev environments with docker. **Fastest performance ever** on Mac and Linux.
-
----
 
 ## Performance Comparison
 
