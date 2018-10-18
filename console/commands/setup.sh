@@ -14,7 +14,7 @@ copy_with_consent()
             exit 1
         fi
     fi
-    echo "${SOURCE_PATH} -> ${TARGET_PATH}"
+    echo " > cp ${SOURCE_PATH} -> ${TARGET_PATH}"
     mkdir -p $(dirname ${TARGET_PATH})
     cp -Rf ${SOURCE_PATH} ${TARGET_PATH}
 }
