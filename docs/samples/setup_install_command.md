@@ -6,7 +6,7 @@ dockergento magento setup:install \
   --db-name=magento \
   --db-user=magento \
   --db-password=magento \
-  --base-url=http://your-domain/ \
+  --base-url=http://magento2.lo/ \
   --admin-firstname=John \
   --admin-lastname=Smith \
   --admin-email=john.smith@gmail.com \
