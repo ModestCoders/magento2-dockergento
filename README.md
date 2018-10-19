@@ -116,6 +116,7 @@ dockergento create-project
 ```
 
 ### Magento 2 github for contribution
+**Disclaimer:** Performance on Mac might be a bit slower here due to the huge amount of files in `app` (~20.000 files)
 
 ```
 git clone https://github.com/magento/magento2.git
