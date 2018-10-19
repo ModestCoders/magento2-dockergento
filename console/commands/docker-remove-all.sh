@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-read -p "Remove all docker data from all your projects (y/n [n])? " ANSWER
+read -p "Remove containers and volumes from all your projects (y/n [n])? " ANSWER
 if [ "${ANSWER}" != "y" ]; then
   echo ""
   printf "> ${GREEN}Action interrupted${COLOR_RESET}\n"

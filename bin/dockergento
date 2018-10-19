@@ -28,20 +28,29 @@ usage()
     echo "  [options] command [arguments]"
     echo ""
     printf "${YELLOW}Options:${COLOR_RESET}\n"
-    printf "  ${GREEN}-T${COLOR_RESET}     Disable pseudo-tty allocation\n"
+    printf "  ${GREEN}--help${COLOR_RESET}    Display this help message\n"
+    printf "  ${GREEN}-T${COLOR_RESET}        Disable pseudo-tty allocation\n"
+    echo ""
+    printf "${YELLOW}Commands Help:${COLOR_RESET}\n"
+    printf "  ${GREEN}dockergento <command> --help${COLOR_RESET}    Display help for a specific command\n"
     echo ""
     printf "${YELLOW}Available commands:${COLOR_RESET}\n"
-	COMMANDS=""
-	for script in "$COMMANDS_DIR"/*
+	COMMANDS_OUTPUT=""
+	for script in "${COMMANDS_DIR}"/*
 	do
 	    COMMAND_BASENAME=$(basename ${script})
-	    COMMANDS="${COMMANDS}  ${COMMAND_BASENAME%.sh}\n"
+	    COMMAND_NAME=${COMMAND_BASENAME%.sh}
+	    COMMAND_DESC_PROPERTY="command_desc_${COMMAND_NAME//-/_}"
+	    COMMAND_DESC="${!COMMAND_DESC_PROPERTY:-}"
+	    COMMAND_OUTPUT=$(printf "  ${GREEN}%-30s${COLOR_RESET} %s" "${COMMAND_NAME}" "${COMMAND_DESC}")
+	    COMMANDS_OUTPUT="${COMMANDS_OUTPUT}${COMMAND_OUTPUT}\n"
 	done
-    printf "${GREEN}${COMMANDS}${COLOR_RESET}"
+    printf "${COMMANDS_OUTPUT}"
 }
 
 init_dirs
 source ${TASKS_DIR}/load_properties.sh
+source ${PROPERTIES_DIR}/command_descriptions
 
 if [ "$#" == 0 ] || [ "$1" == "--help" ]; then
   usage
