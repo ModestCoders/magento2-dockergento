@@ -123,7 +123,7 @@ dockergento create-project
 1. Remove this line on `docker-compose.dev.mac.yml`
 
     ```
-        - ./app:/var/www/html/app
+        - ./app:/var/www/html/app:delegated
     ```
 
 2. Sync `app` using `unison` container. Add this in `docker-compose.dev.mac.yml`
@@ -139,7 +139,6 @@ dockergento create-project
     ```
     dockergento watch app
     ```
-    
     
 </details>
 
