@@ -118,7 +118,7 @@ dockergento create-project
 **Disclaimer:** Performance on Mac is slower here due to the huge amount of files in `app` (~20.000 files)
 
 <details>
-<summary>workaround to improve performance on Mac</summary>
+<summary>Workaround to improve performance on Mac</summary>
 	
 1. Remove this line on `docker-compose.dev.mac.yml`
 
@@ -134,11 +134,12 @@ dockergento create-project
         - ./app:/sync/app
     ```
     
-3. Now `app` in not automatically sync, so you need to manually start the watcher:
+3. Now `app` is not automatically synced, so you need to manually start the watcher:
     
     ```
     dockergento watch app
     ```
+    
     
 </details>
 
