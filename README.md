@@ -33,7 +33,6 @@ While performance might no be a problem for Linux, using this tool is the only w
 
 ---
 
-
 ## Installation
 
 You only need 3 things on your local machine: `git`, `docker` and `dockergento`
@@ -141,7 +140,7 @@ dockergento create-project
     dockergento watch app
     ```
     
-<\details>
+</details>
 
 ```
 git clone https://github.com/magento/magento2.git
