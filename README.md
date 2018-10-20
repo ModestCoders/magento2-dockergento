@@ -116,7 +116,32 @@ dockergento create-project
 ```
 
 ### Magento 2 github for contribution
-**Disclaimer:** Performance on Mac might be a bit slower here due to the huge amount of files in `app` (~20.000 files)
+**Disclaimer:** Performance on Mac is slower here due to the huge amount of files in `app` (~20.000 files)
+
+<details>
+<summary>workaround to improve performance on Mac</summary>
+	
+1. Remove this line on `docker-compose.dev.mac.yml`
+
+    ```
+        - ./app:/var/www/html/app
+    ```
+
+2. Sync `app` using `unison` container. Add this in `docker-compose.dev.mac.yml`
+
+    ```
+    unison:
+      volumes:
+        - ./app:/sync/app
+    ```
+    
+3. Now `app` in not automatically sync, so you need to manually start the watcher:
+    
+    ```
+    dockergento watch app
+    ```
+    
+<\details>
 
 ```
 git clone https://github.com/magento/magento2.git
