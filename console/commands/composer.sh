@@ -58,8 +58,8 @@ then
     fi
 
     mirror_vendor_host_into_container
-    ${COMMANDS_DIR}/exec.sh composer "$@"
+    ${COMMANDS_DIR}/exec.sh sh -c "cd ${COMPOSER_DIR} && composer $@"
     sync_all_from_container_to_host
 else
-    ${COMMANDS_DIR}/exec.sh composer "$@"
+    ${COMMANDS_DIR}/exec.sh sh -c "cd ${COMPOSER_DIR} && composer $@"
 fi
