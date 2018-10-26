@@ -18,8 +18,8 @@ sync_all_from_container_to_host()
     # Otherwise the docker.hyperkit gets crazy and breaks the bind mounts
     ${COMMANDS_DIR}/stop.sh
 
-    printf "${GREEN}First time setup: copying all files from container${COLOR_RESET}\n"
-    echo " > removing vendor content: '${HOST_DIR}/${MAGENTO_DIR}/vendor/*'"
+    printf "${GREEN}Copying all files from container to host${COLOR_RESET}\n"
+    echo " > removing vendor in host: '${HOST_DIR}/${MAGENTO_DIR}/vendor/*'"
     rm -rf ${HOST_DIR}/${MAGENTO_DIR}/vendor/*
 
     echo " > copying '${SERVICE_PHP}:${WORKDIR_PHP}/.' into '${HOST_DIR}'"

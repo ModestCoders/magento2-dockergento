@@ -6,7 +6,7 @@ Plug and play Magento 2 dev environments with docker. **Fastest performance ever
 
 #### Up to 7x faster development experience on Mac compare to standard docker setups.
 
-<a href="https://youtu.be/qdUBuDCzHaA" target="_blank">
+<a href="https://www.youtube.com/watch?v=qdUBuDCzHaA&list=PLBt8dizedSZBhcjTL8SM2PS2HEy0mFf5F" target="_blank">
   <img src="docs/img/benchmark_comparison_video.png" alt="Dockergento speed comparison" width="320" height="180" border="5" />
 </a>
 
@@ -30,6 +30,14 @@ While performance might no be a problem for Linux, using this tool is the only w
 
 * Mac
 * Linux
+
+---
+
+## Video Tutorials
+
+If you do not like reading and prefer watching videos. Check out all video tutorials here:
+
+* [Video Tutorials](./docs/video_tutorials.md)
 
 ---
 
@@ -116,6 +124,42 @@ dockergento create-project
 
 ### Magento 2 github for contribution
 **Disclaimer:** Performance on Mac is slower here due to the huge amount of files in `app` (~20.000 files)
+
+<details>
+<summary>Workaround to improve performance on Mac</summary>
+	
+1. Remove these lines on `docker-compose.dev.mac.yml`
+    
+    ```
+        - ./app:/var/www/html/app:delegated
+        - ./dev:/var/www/html/dev:delegated
+        - ./generated:/var/www/html/generated:delegated
+        - ./pub:/var/www/html/pub:delegated
+        - ./var:/var/www/html/var:delegated
+    ```
+ 
+2. Sync `app` using `unison` container. Add this in `docker-compose.dev.mac.yml`
+     
+    ```
+    unison:
+      volumes:
+        - ./app:/sync/app
+    ```
+
+3. Mirror not synced folders before executing composer the first time
+
+	```
+	dockergento start
+	dockergento mirror-host app dev generated pub var
+	```
+
+4. If you are editing code in `app`, you need to start unison watcher to sync files between host and container.
+
+	```
+	dockergento watch app/code/Magento/<module_name>
+	```
+    
+</details>
 
 ```
 git clone https://github.com/magento/magento2.git
