@@ -6,7 +6,7 @@ Plug and play Magento 2 dev environments with docker. **Fastest performance ever
 
 #### Up to 7x faster development experience on Mac compare to standard docker setups.
 
-<a href="https://youtu.be/qdUBuDCzHaA" target="_blank">
+<a href="https://www.youtube.com/watch?v=qdUBuDCzHaA&list=PLBt8dizedSZBhcjTL8SM2PS2HEy0mFf5F" target="_blank">
   <img src="docs/img/benchmark_comparison_video.png" alt="Dockergento speed comparison" width="320" height="180" border="5" />
 </a>
 
@@ -30,6 +30,14 @@ While performance might no be a problem for Linux, using this tool is the only w
 
 * Mac
 * Linux
+
+---
+
+## Video Tutorials
+
+If you do not like reading and prefer watching videos. Check out all video tutorials here:
+
+* [Video Tutorials](./docs/video_tutorials.md)
 
 ---
 
@@ -138,7 +146,7 @@ dockergento create-project
         - ./app:/sync/app
     ```
 
-3. Mirror not synced folder before executing composer the first time
+3. Mirror not synced folders before executing composer the first time
 
 	```
 	dockergento start

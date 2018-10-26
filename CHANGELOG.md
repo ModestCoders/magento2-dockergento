@@ -11,6 +11,16 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+## [3.1.1] - 26-10-2018
+### Added
+
+* Documentation updates and Video tutorials section.
+
+## [3.1.0] - 17-10-2018
+### Added
+
+* Command descriptions added to `dockergento` console.
+
 ## [3.0.0] - 16-10-2018
 ### Added
 
