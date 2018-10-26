@@ -38,6 +38,15 @@ if [[ "$#" != 0 && "$1" == "create-project" ]]; then
         exit 1
 fi
 
+COMPOSER_WORKDIR_PARAM=" -w ${COMPOSER_DIR}"
+if [[ "$#" != 0 ]]; then
+    for i in "$@"; do
+        if [[ "$i" == "-w" || "$i" == "--working-dir" ]]; then
+            COMPOSER_WORKDIR_PARAM=""
+        fi
+    done
+fi
+
 if [[ "$#" != 0 \
     && ( "${MACHINE}" == "mac" || "${MACHINE}" == "windows" ) \
     && ( "$1" == "install" || "$1" == "update" || "$1" == "require" || "$1" == "remove" ) ]]
@@ -58,8 +67,8 @@ then
     fi
 
     mirror_vendor_host_into_container
-    ${COMMANDS_DIR}/exec.sh sh -c "cd ${COMPOSER_DIR} && composer $@"
+    ${COMMANDS_DIR}/exec.sh composer ${COMPOSER_WORKDIR_PARAM} "$@"
     sync_all_from_container_to_host
 else
-    ${COMMANDS_DIR}/exec.sh sh -c "cd ${COMPOSER_DIR} && composer $@"
+    ${COMMANDS_DIR}/exec.sh composer ${COMPOSER_WORKDIR_PARAM} "$@"
 fi
