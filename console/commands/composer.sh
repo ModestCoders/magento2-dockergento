@@ -39,10 +39,11 @@ if [[ "$#" != 0 && "$1" == "create-project" ]]; then
 fi
 
 COMPOSER_WORKDIR_PARAM=" -w ${COMPOSER_DIR}"
-if [[ "$#" != 0 ]]; then
+if [ "$#" != 0 ]; then
     for i in "$@"; do
         if [[ "$i" == "-w" || "$i" == "--working-dir" ]]; then
             COMPOSER_WORKDIR_PARAM=""
+            break
         fi
     done
 fi
