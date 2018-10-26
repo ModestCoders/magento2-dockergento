@@ -29,6 +29,10 @@ dockergento grunt exec:<theme>
 dockergento grunt watch
 ```
 
+**NOTE:** You might also need to disable your browser cache. For example in Chrome:
+
+* `Open inspector > Settings > Network > Disable cache (while DevTools is open)`
+
 #### 5. Working on vendor modules [Mac only]
 
 If you are developing code in a vendor module, you need to start unison watcher to sync files between host and container.
