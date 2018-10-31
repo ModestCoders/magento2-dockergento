@@ -15,7 +15,7 @@ if [ "$#" == 0 ] || [ "$1" == "--help" ]; then
     exit 0
 fi
 
-${DOCKER_COMPOSE} run --rm ${SERVICE_NODE} sh -c "cd ${MAGENTO_DIR} && \
+${DOCKER_COMPOSE} run --rm -p 35729:35729 ${SERVICE_NODE} sh -c "cd ${MAGENTO_DIR} && \
     cp -n package.json.sample package.json && \
     cp -n Gruntfile.js.sample Gruntfile.js && \
     npm install && \
