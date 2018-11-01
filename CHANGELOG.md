@@ -11,6 +11,11 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+## [3.2.0] - 01-11-2018
+### Added
+
+* Support for Livereload in google Chrome.
+
 ## [3.1.1] - 26-10-2018
 ### Added
 
