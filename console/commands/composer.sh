@@ -71,7 +71,7 @@ then
     fi
 
     mirror_vendor_host_into_container
-    ${COMMANDS_DIR}/exec.sh composer ${COMPOSER_WORKDIR_PARAM} "$@"
+    ${COMMANDS_DIR}/exec.sh composer "$@" ${COMPOSER_WORKDIR_PARAM} 
     sync_all_from_container_to_host
 else
     ${COMMANDS_DIR}/exec.sh composer ${COMPOSER_WORKDIR_PARAM} "$@"
