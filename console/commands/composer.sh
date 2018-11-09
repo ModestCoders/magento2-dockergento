@@ -74,5 +74,5 @@ then
     ${COMMANDS_DIR}/exec.sh composer "$@" ${COMPOSER_DIR_OPTION} 
     sync_all_from_container_to_host
 else
-    ${COMMANDS_DIR}/exec.sh composer ${COMPOSER_DIR_OPTION} "$@"
+    ${COMMANDS_DIR}/exec.sh composer "$@" ${COMPOSER_DIR_OPTION} 
 fi
