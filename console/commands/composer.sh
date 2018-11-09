@@ -38,7 +38,7 @@ if [[ "$#" != 0 && "$1" == "create-project" ]]; then
         exit 1
 fi
 
-COMPOSER_DIR_OPTION=" --working-dir=${COMPOSER_DIR}"
+COMPOSER_DIR_OPTION="--working-dir=${COMPOSER_DIR}"
 if [[ "$#" != 0 \
     && ( $@ == *" -d "*  || $@ == *" -d="* \
         || $@ == "-d "* || $@ == "-d="*  \
@@ -56,7 +56,7 @@ if [[ "$#" != 0 \
     && ( "$1" == "install" || "$1" == "update" || "$1" == "require" || "$1" == "remove" ) ]]
 then
     printf "${GREEN}Validating composer before doing anything${COLOR_RESET}\n"
-    VALIDATION_OUTPUT=$(${COMMANDS_DIR}/exec.sh composer validate) \
+    VALIDATION_OUTPUT=$(${COMMANDS_DIR}/exec.sh composer validate ${COMPOSER_DIR_OPTION}) \
      || if [ $? == 1 ]; then echo "${VALIDATION_OUTPUT}"; exit 1; fi
 
     MAGENTO2_MODULE_PATH="${MAGENTO_DIR}/vendor/magento/magento2-base"
@@ -71,8 +71,8 @@ then
     fi
 
     mirror_vendor_host_into_container
-    ${COMMANDS_DIR}/exec.sh composer "$@" ${COMPOSER_DIR_OPTION} 
+    ${COMMANDS_DIR}/exec.sh composer "$@" ${COMPOSER_DIR_OPTION}
     sync_all_from_container_to_host
 else
-    ${COMMANDS_DIR}/exec.sh composer "$@" ${COMPOSER_DIR_OPTION} 
+    ${COMMANDS_DIR}/exec.sh composer "$@" ${COMPOSER_DIR_OPTION}
 fi
