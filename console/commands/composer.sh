@@ -38,7 +38,7 @@ if [[ "$#" != 0 && "$1" == "create-project" ]]; then
         exit 1
 fi
 
-COMPOSER_WORKDIR_PARAM=" --working-dir=${COMPOSER_DIR}"
+COMPOSER_DIR_OPTION=" --working-dir=${COMPOSER_DIR}"
 if [[ "$#" != 0 \
     && ( $@ == *" -d "*  || $@ == *" -d="* \
         || $@ == "-d "* || $@ == "-d="*  \
@@ -71,8 +71,8 @@ then
     fi
 
     mirror_vendor_host_into_container
-    ${COMMANDS_DIR}/exec.sh composer "$@" ${COMPOSER_WORKDIR_PARAM} 
+    ${COMMANDS_DIR}/exec.sh composer "$@" ${COMPOSER_DIR_OPTION} 
     sync_all_from_container_to_host
 else
-    ${COMMANDS_DIR}/exec.sh composer ${COMPOSER_WORKDIR_PARAM} "$@"
+    ${COMMANDS_DIR}/exec.sh composer ${COMPOSER_DIR_OPTION} "$@"
 fi
