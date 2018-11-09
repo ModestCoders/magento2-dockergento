@@ -11,6 +11,11 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+## [3.3.0] - 09-11-2018
+### Added
+
+* Automatically set `--working-dir=${COMPOSER_DIR}` option for `composer` commands.
+
 ## [3.2.0] - 01-11-2018
 ### Added
 
