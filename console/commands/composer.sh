@@ -43,7 +43,7 @@ if [[ "$#" != 0 \
     && ( $@ == *" -d "*  || $@ == *" -d="* \
         || $@ == "-d "* || $@ == "-d="*  \
         || $@ == *" --working-dir "* || $@ == *" --working-dir="*   \
-        || $@ == "--working-dir "* || $@ == " --working-dir="* ) ]]; then
+        || $@ == "--working-dir "* || $@ == "--working-dir="* ) ]]; then
     COMPOSER_WORKDIR_PARAM=""
 fi
 
