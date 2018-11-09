@@ -38,7 +38,7 @@ if [[ "$#" != 0 && "$1" == "create-project" ]]; then
         exit 1
 fi
 
-COMPOSER_WORKDIR_PARAM=" -d ${COMPOSER_DIR}"
+COMPOSER_WORKDIR_PARAM=" --working-dir=${COMPOSER_DIR}"
 if [[ "$#" != 0 \
     && ( $@ == *" -d "*  || $@ == *" -d="* \
         || $@ == "-d "* || $@ == "-d="*  \
