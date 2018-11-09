@@ -44,7 +44,7 @@ if [[ "$#" != 0 \
         || $@ == "-d "* || $@ == "-d="*  \
         || $@ == *" --working-dir "* || $@ == *" --working-dir="*   \
         || $@ == "--working-dir "* || $@ == "--working-dir="* ) ]]; then
-     printf "${COLOR_RED}Composer directory option not compatible with dockergento. This option is automatically set: ${COLOR_RESET}\n"
+     printf "${RED}Composer directory option not compatible with dockergento. This option is automatically set: ${COLOR_RESET}\n"
      echo ""
      echo "    --working-dir=${COMPOSER_DIR}"
      echo ""
