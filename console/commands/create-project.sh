@@ -68,4 +68,4 @@ if [[ ${COMPOSER_EDITION_NEEDED} == true ]]; then
     exit 0
 fi
 
-${COMMANDS_DIR}/composer.sh install -d ${COMPOSER_DIR}
+${COMMANDS_DIR}/composer.sh install
