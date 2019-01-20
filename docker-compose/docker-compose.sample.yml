@@ -20,6 +20,7 @@ services:
     depends_on:
       - phpfpm
       - redis
+      - elasticsearch
 
   db:
     image: mysql:5.7
@@ -47,6 +48,31 @@ services:
       - 6379:6379
     tty: true
 
+  elasticsearch:
+    image: elasticsearch:5.6.10-alpine
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    ports:
+      - 9200:9200
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: curl --cacert /usr/share/elasticsearch/config/certs/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
 volumes:
   dbdata:
   sockdata:
+  es_data:
