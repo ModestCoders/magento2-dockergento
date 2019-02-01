@@ -11,6 +11,11 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+## [3.3.1] - 01-02-2019
+### Change
+
+* Fix bug when executing `debug-on` command on linux machine
+
 ## [3.3.0] - 09-11-2018
 ### Added
 
