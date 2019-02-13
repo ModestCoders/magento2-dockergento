@@ -149,7 +149,7 @@ fi
 
 echo "PHP version:"
 DEFAULT_PHP_VERSION="7.1"
-AVAILABLE_PHP_VERSIONS="7.0 7.1"
+AVAILABLE_PHP_VERSIONS="7.0 7.1 7.2"
 select PHP_VERSION in ${AVAILABLE_PHP_VERSIONS}; do
     if $(${TASKS_DIR}/in_list.sh "${PHP_VERSION}" "${AVAILABLE_PHP_VERSIONS}"); then
         break
