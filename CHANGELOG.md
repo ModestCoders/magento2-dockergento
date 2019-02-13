@@ -11,6 +11,11 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+## [3.4.0] - 13-02-2019
+### Added
+
+* Added php version: 7.2.
+
 ## [3.3.1] - 01-02-2019
 ### Change
 
