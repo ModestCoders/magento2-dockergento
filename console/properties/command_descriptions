@@ -12,6 +12,7 @@ command_desc_grunt="Execute grunt commands for frontend development (i.e: grunt 
 command_desc_magento_purge="Remove all magento generated code (caches, generated, static, view_preprocessed)"
 command_desc_magento_urn_generate="Generates the catalog of URNs to *.xsd mappings for the IDE to highlight xml"
 command_desc_magento="Execute magento console commands"
+command_desc_n98_magerun2="Execute n98-magerun2 console commands"
 command_desc_mirror_container="(Mac only) Copy and overwrite container content into host"
 command_desc_mirror_host="(Mac only) Copy and overwrite host content into container"
 command_desc_rebuild="Rebuild docker services with current configuration"
