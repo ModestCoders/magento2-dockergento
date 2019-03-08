@@ -11,6 +11,11 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+## [3.5.0] - 08-03-2019
+### Added
+
+* Added bind path `../.composer:/var/www/html/var/composer_home` so composer cache is kept in host.
+
 ## [3.4.0] - 13-02-2019
 ### Added
 

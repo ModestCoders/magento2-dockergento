@@ -54,6 +54,9 @@ if [ "${MAGENTO_DIR}" != "." ]; then
 	printf "${GREEN}Setting custom magento dir: '${MAGENTO_DIR}'${COLOR_RESET}\n"
     MAGENTO_DIR=$(sanitize_path "${MAGENTO_DIR}")
     printf "${YELLOW}"
+    echo "------ ${DOCKER_COMPOSE_FILE} ------"
+	sed_in_file "s#/html/var/composer_home#/html/${MAGENTO_DIR}/var/composer_home#gw /dev/stdout" "${DOCKER_COMPOSE_FILE}"
+	echo "--------------------"
     echo "------ ${DOCKER_COMPOSE_FILE_MAC} ------"
 	sed_in_file "s#/app:#/${MAGENTO_DIR}/app:#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
 	sed_in_file "s#/vendor#/${MAGENTO_DIR}/vendor#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
