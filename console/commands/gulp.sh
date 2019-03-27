@@ -15,5 +15,5 @@ if [ "$#" == 0 ] || [ "$1" == "--help" ]; then
     exit 0
 fi
 
-${DOCKER_COMPOSE} run --rm --service-ports ${SERVICE_NODE} sh -c "cd ${MAGENTO_DIR}/frontools && \
+${DOCKER_COMPOSE} run --rm --no-deps --service-ports ${SERVICE_NODE} sh -c "cd ${MAGENTO_DIR}/frontools && \
     npx gulp $@"
