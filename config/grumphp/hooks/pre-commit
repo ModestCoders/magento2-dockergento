@@ -21,7 +21,7 @@ DOCKER_PHP_CONTAINER_ID=$(docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q phpfpm)
 HOOK_COMMAND=$(echo "$(HOOK_COMMAND)" | sed "s/'//g")
 
 # Run GrumPHP
-(cd "${HOOK_EXEC_PATH}" && echo "${DIFF}" | \
+(cd "./" && echo "${DIFF}" | \
     exec 'docker' 'run' '--rm' '-t' "--volume=$PWD:${HOOK_EXEC_PATH}" "${DOCKER_PHP_CONTAINER_ID}" \
     'vendor/bin/grumphp' "${HOOK_COMMAND}" '--skip-success-output')
 
