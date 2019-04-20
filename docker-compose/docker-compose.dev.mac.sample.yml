@@ -1,9 +1,8 @@
-version: "3"
+version: "3.7"
 
 services:
   phpfpm:
     volumes: &appvolumes-mac
-      - ../.composer:/var/www/.composer:delegated
       - workspace:/var/www/html
       - ./app:/var/www/html/app:delegated
       - ./.git:/var/www/html/.git:delegated

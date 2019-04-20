@@ -1,12 +1,13 @@
-version: "3"
+version: "3.7"
 
 services:
   phpfpm:
     image: modestcoders/php:7.1-fpm-1
     volumes: &appvolumes
-      - ../.composer:/var/www/.composer
       - sockdata:/sock
-      - ./config/dockergento/nginx/conf/default.conf:/var/www/conf/nginx/default.conf
+      - ../.composer:/var/www/.composer:delegated
+      - ../.composer:/var/www/html/var/composer_home:delegated
+      - ./config/dockergento/nginx/conf/default.conf:/var/www/conf/nginx/default.conf:delegated
     environment:
       PHP_IDE_CONFIG: serverName=localhost
     depends_on:
