@@ -16,9 +16,9 @@ if [[ "${MACHINE}" == "mac" || "${MACHINE}" == "windows" ]]; then
     printf "${YELLOW}Copying generated code into host ${COLOR_RESET}\n"
     ${COMMANDS_DIR}/mirror-container.sh -f ${GENERATED_DIR}
     # No need to restart because mirror-container.sh already does a restart
-    # ${COMMANDS_DIR}/restart.sh
+    # ${DOCKER_COMPOSE} restart ${SERVICE_PHP}
 else
-    ${COMMANDS_DIR}/restart.sh
+    ${DOCKER_COMPOSE} restart ${SERVICE_PHP}
 fi
 
 printf "${YELLOW}xdebug configuration: ${COLOR_RESET}\n"
