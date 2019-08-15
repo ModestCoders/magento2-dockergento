@@ -7,7 +7,7 @@ if [[ "${MACHINE}" == 'linux' && "${XDEBUG_HOST:-}" == "" ]]; then
     source ${TASKS_DIR}/set_xdebug_host_property.sh
 fi
 if [[ "${XDEBUG_HOST:-}" != "" ]]; then
-    ${COMMANDS_DIR}/exec.sh --root sed -i "s/xdebug\.remote_host\=.*/xdebug\.remote_host\=${XDEBUG_HOST}/g" /usr/local/etc/php/conf.d/xdebug.ini
+    ${COMMANDS_DIR}/exec.sh sed -i "s/xdebug\.remote_host\=.*/xdebug\.remote_host\=${XDEBUG_HOST}/g" /usr/local/etc/php/conf.d/xdebug.ini
 fi
 
 ${COMMANDS_DIR}/exec.sh sed -i -e 's/^\;zend_extension/zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
