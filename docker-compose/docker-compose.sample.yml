@@ -12,6 +12,7 @@ services:
       PHP_IDE_CONFIG: serverName=localhost
     depends_on:
       - db
+      - elasticsearch
 
   nginx:
     image: modestcoders/nginx:1.13
@@ -40,6 +41,9 @@ services:
     volumes: *appvolumes
     depends_on:
       - phpfpm
+
+  elasticsearch:
+    image: modestcoders/elasticsearch:6.5
 
 volumes:
   dbdata:
