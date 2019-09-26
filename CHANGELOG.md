@@ -4,12 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.html).
 
-## [future-version] - 00-00-2018
+## [Unreleased]
+
+## [4.0.0] - 2019-09-26
 ### Added
+ * Added elasticsearch service
 
 ### Changed
+ * Speed up debug-on and debug-off commands
+ * Changed naming convention for fpm images in order to have always the last version
+ * Updated nginx conf file
 
-### Removed
+### Fixed
+ * Fixed large product imports increasing php `max_input_vars` value
+ * Fixed link to php image in docs
 
 ## [3.5.0] - 08-03-2019
 ### Added
