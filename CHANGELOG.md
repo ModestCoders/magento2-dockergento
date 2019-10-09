@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+ * Linux: permission fix not running on rebuild
+ * Linux: now correct permissions are set when UID is not 1000
 
 ## [4.0.0] - 2019-09-26
 ### Added

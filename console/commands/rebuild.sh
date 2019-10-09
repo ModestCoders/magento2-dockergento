@@ -12,3 +12,12 @@ else
 fi
 
 ${TASKS_DIR}/validate_bind_mounts.sh
+
+echo "Waiting for everything to spin up..."
+sleep 5
+
+if [[ "${MACHINE}" == "linux" ]]; then
+    echo " > fixing permissions"
+    ${TASKS_DIR}/fix_linux_permissions.sh
+    echo " > permissions fix finished"
+fi
