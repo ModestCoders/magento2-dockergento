@@ -44,7 +44,12 @@ services:
 
   elasticsearch:
     image: modestcoders/elasticsearch:6.5
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
 
 volumes:
   dbdata:
   sockdata:
+  elasticsearch_data:
