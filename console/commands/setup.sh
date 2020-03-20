@@ -174,7 +174,7 @@ if [ "${PHP_VERSION}" != "${DEFAULT_PHP_VERSION}" ]; then
     printf "${COLOR_RESET}\n"
 fi
 
-read -p "Docker compose project name: [${MAGENTO_DIR}] " ANSWER_PROJECT_NAME
+read -p "[OPTIONAL] Docker compose project name: [${COMPOSER_PROJECT_NAME-}]" ANSWER_PROJECT_NAME
 PROJECT_NAME=${ANSWER_PROJECT_NAME-}
 if [[ ! -z "${PROJECT_NAME}" ]];then
     printf "${GREEN}Setting custom project name: '${PROJECT_NAME}'\n"
