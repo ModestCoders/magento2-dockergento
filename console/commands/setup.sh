@@ -174,11 +174,21 @@ if [ "${PHP_VERSION}" != "${DEFAULT_PHP_VERSION}" ]; then
     printf "${COLOR_RESET}\n"
 fi
 
+read -p "[OPTIONAL] Docker compose project name: [${COMPOSER_PROJECT_NAME-}]" ANSWER_PROJECT_NAME
+PROJECT_NAME=${ANSWER_PROJECT_NAME-}
+if [[ ! -z "${PROJECT_NAME}" ]];then
+    printf "${GREEN}Setting custom project name: '${PROJECT_NAME}'\n"
+    printf "This will serve as docker object (container, volume, network) prefix.\n"
+    printf "${COLOR_RESET}"
+    COMPOSE_PROJECT_NAME="${PROJECT_NAME}"
+fi
+
 printf "${GREEN}Saving custom properties file: '${DOCKERGENTO_CONFIG_DIR}/properties'${COLOR_RESET}\n"
 cat << EOF > ./${DOCKERGENTO_CONFIG_DIR}/properties
 MAGENTO_DIR="${MAGENTO_DIR}"
 COMPOSER_DIR="${COMPOSER_DIR}"
 BIN_DIR="${BIN_DIR}"
+COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME}"
 EOF
 
 # Stop running containers in case that setup was executed in an already running project

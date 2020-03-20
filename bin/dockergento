@@ -71,8 +71,12 @@ if [ ! -f ${COMMANDS_DIR}/${COMMAND_NAME} ]; then
 fi
 
 source ${TASKS_DIR}/set_machine_specific_properties.sh
-export DOCKER_COMPOSE="docker-compose -f ${DOCKER_COMPOSE_FILE} -f ${DOCKER_COMPOSE_FILE_MACHINE}"
 
+if [[ ! -z "${COMPOSE_PROJECT_NAME+}" ]]; then
+    export COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME}"
+fi
+
+export DOCKER_COMPOSE="docker-compose -f ${DOCKER_COMPOSE_FILE} -f ${DOCKER_COMPOSE_FILE_MACHINE}"
 
 if [[ "$1" != "setup" && "$1" != "docker-stop-all" && "$1" != "docker-remove-all" ]]; then
     ${TASKS_DIR}/validate_docker_compose.sh
