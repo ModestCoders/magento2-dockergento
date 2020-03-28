@@ -52,7 +52,7 @@ if [[ "$#" != 0 \
 fi
 
 if [[ "$#" != 0 \
-    && ( "${MACHINE}" == "mac" || "${MACHINE}" == "windows" ) \
+    && ( ( "${MACHINE}" == "mac" && "${USE_MUTAGEN_SYNC}" != "1" ) || "${MACHINE}" == "windows" ) \
     && ( "$1" == "install" || "$1" == "update" || "$1" == "require" || "$1" == "remove" ) ]]
 then
     printf "${GREEN}Validating composer before doing anything${COLOR_RESET}\n"

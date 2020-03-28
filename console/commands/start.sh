@@ -19,3 +19,9 @@ if [[ "${MACHINE}" == "linux" ]]; then
     ${TASKS_DIR}/fix_linux_permissions.sh
     echo " > permissions fix finished"
 fi
+
+if [[ "${MACHINE}" == "mac" && "${USE_MUTAGEN_SYNC}" == "1" ]]; then
+    echo " > starting mutagen sync session"
+    ${TASKS_DIR}/mutagen_sync.sh start
+    printf " > mutagen sync started\n"
+fi

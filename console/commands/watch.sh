@@ -20,6 +20,11 @@ if [[ "${MACHINE}" != "mac" ]] && [[ "${MACHINE}" != "windows" ]]; then
     exit 1
 fi
 
+if [[ "${MACHINE}" == "mac" && "${USE_MUTAGEN_SYNC}" == "1" ]]; then
+    printf "${RED} This command is not used when mutagen sync is enabled.${COLOR_RESET}\n"
+    exit 1
+fi
+
 PATH_ARGS=""
 for WATCH_PATH in $@
 do

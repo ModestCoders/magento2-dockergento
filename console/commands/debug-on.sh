@@ -12,7 +12,7 @@ fi
 
 ${COMMANDS_DIR}/exec.sh sed -i -e 's/^\;zend_extension/zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-if [[ "${MACHINE}" == "mac" || "${MACHINE}" == "windows" ]]; then
+if [[ ( "${MACHINE}" == "mac" && "${USE_MUTAGEN_SYNC}" != "1" ) || "${MACHINE}" == "windows" ]]; then
     printf "${YELLOW}Copying generated code into host ${COLOR_RESET}\n"
     ${COMMANDS_DIR}/mirror-container.sh -f ${GENERATED_DIR}
     # No need to restart because mirror-container.sh already does a restart
