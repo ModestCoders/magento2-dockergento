@@ -48,6 +48,7 @@ read -p "Magento version: " MAGENTO_VERSION
 ${TASKS_DIR}/start_service_if_not_running.sh ${SERVICE_APP}
 
 CREATE_PROJECT_TMP_DIR="dockergento-create-project-tmp"
+${COMMANDS_DIR}/exec.sh sh -c "rm -rf ${CREATE_PROJECT_TMP_DIR}/*"
 ${COMMANDS_DIR}/exec.sh composer create-project --no-install --repository=https://repo.magento.com/ magento/project-${MAGENTO_EDITION}-edition ${CREATE_PROJECT_TMP_DIR} ${MAGENTO_VERSION}
 
 echo " > Copying project files into host"
