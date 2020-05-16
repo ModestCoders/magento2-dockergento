@@ -6,12 +6,16 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
- - Now can add project name (-COMPOSER_FILE_NAME env var) via project properties.
- - Added .editorconfig file with basic coding style rules.
 
 ### Changed
 
 ### Fixed
+
+## [4.2.0] - 2020-05-16
+### Added
+ * Now can add project name (-COMPOSER_FILE_NAME env var) via project properties.
+ * Created .editorconfig file with basic coding style rules.
+ * Now you can choose between Magento: Commerce or Open Source when creating a project.
 
 ## [4.1.0] - 2020-03-15
 ### Added
