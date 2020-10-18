@@ -11,6 +11,12 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Fixed
 
+## [4.3.0] - 2020-10-18
+### Added
+  * Image added php:7.4-fpm for compatibility with Magento versions >= 2.4
+### Fixed
+  * Increased fastcgi_buffer_size to 32K. This will fix Magento 2.4 max buffer size error.
+
 ## [4.2.0] - 2020-05-16
 ### Added
  * Now can add project name (-COMPOSER_FILE_NAME env var) via project properties.
