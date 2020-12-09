@@ -23,5 +23,5 @@ fi
 
 printf "${YELLOW}xdebug configuration: ${COLOR_RESET}\n"
 printf "${YELLOW}--------------------------------${COLOR_RESET}\n"
-${COMMANDS_DIR}/exec.sh php -i | grep -e "xdebug.idekey" -e "xdebug.remote_host" -e "xdebug.remote_port" | cut -d= -f1-2
+${COMMANDS_DIR}/exec.sh php -i | grep -e "xdebug.idekey" -e "xdebug.client_host" -e "xdebug.client_port" | cut -d= -f1-2
 printf "${YELLOW}--------------------------------${COLOR_RESET}\n"
