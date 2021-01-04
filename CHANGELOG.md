@@ -11,6 +11,11 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Fixed
 
+## [4.4.0] - 2021-01-04
+### Added
+  * Added documentation about install command including elasticsearch setup.
+  * Added support for XDebug >= 3.
+
 ## [4.3.0] - 2020-10-18
 ### Added
   * Image added php:7.4-fpm for compatibility with Magento versions >= 2.4
