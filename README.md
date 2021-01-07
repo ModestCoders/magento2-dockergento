@@ -171,19 +171,27 @@ dockergento setup
 
 ## Usage
 
-### Installing Magento
+### Installing Magento 2.4
 
 For a new store with Magento 2.4, you will need to install Magento via the command line before you can use it. Follow the instructions at https://devdocs.magento.com/guides/v2.4/install-gde/install-quick-ref.html, using `db` as the database host and `elasticsearch` as the Elasticsearch host.
 
 For example:
 
 ```
- dockergento magento setup:install --base-url=http://local.magento.com --db-host=db --db-name=magento --db-user=magento --db-password=magento \
+dockergento magento setup:install --base-url=http://local.magento.com --db-host=db --db-name=magento --db-user=magento --db-password=magento \
 --admin-firstname=Magento --admin-lastname=User --admin-email=user@example.com \
 --admin-user=admin --admin-password=admin123 --language=en_US \
 --currency=USD --timezone=America/Chicago --use-rewrites=1 \
 --elasticsearch-host=elasticsearch
 ```
+
+Make a note of the admin URL it prints out, e.g. `[SUCCESS]: Magento Admin URI: /admin_5gdsve`.
+
+You also need to disable 2FA, as the Docker image is not configured to send the necessary email:
+
+`dockergento bin/magento module:disable Magento_TwoFactorAuth`
+
+You can now access your admin at http://<your-domain>/<admin_uri> e.g. http://127.0.0.1/admin_5gdsve and login with the details you gave on the command line, e.g. admin/admin123.
 
 ### Start Application
 
