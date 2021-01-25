@@ -19,24 +19,17 @@ if [[ ${DOCKER_COMPOSE_DIR} = *"/vendor/"* ]]; then
   DOCKER_COMPOSE_DIR=${VENDOR_PARENT_DIR}/..
 fi
 DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_DIR}/docker-compose.yml
-DOCKER_PHP_CONTAINER_ID=$(docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q phpfpm)
+DOCKER_PHP_IMAGE=$(docker-compose -f ${DOCKER_COMPOSE_FILE} images -q phpfpm)
 
 # Remove single quotes from hook_command. It is needed to use it inside the docker exec
 HOOK_COMMAND=$(echo "$(HOOK_COMMAND)" | sed "s/'//g")
 
-printf "%s\n" "${DIFF}" > "${DIFF_FILE}" && docker cp "${DIFF_FILE}" ${DOCKER_PHP_CONTAINER_ID}:"/tmp/${DIFF_FILE}"
-
 # Run GrumPHP
-docker exec -t \
-    -e HOOK_EXEC_PATH=${HOOK_EXEC_PATH} -e HOOK_COMMAND="${HOOK_COMMAND}" \
-    -e GIT_USER="${GIT_USER}" -e GIT_EMAIL="${GIT_EMAIL}" -e COMMIT_MSG_FILE="${COMMIT_MSG_FILE}" \
-    -e DIFF_FILE="${DIFF_FILE}" \
-    ${DOCKER_PHP_CONTAINER_ID} sh -c \
-    'cd "${HOOK_EXEC_PATH}" && cat "/tmp/${DIFF_FILE}" | ${HOOK_COMMAND} --git-user="${GIT_USER}" --git-email="${GIT_EMAIL}" "${COMMIT_MSG_FILE}"'
-GRUMPHP_EXIT_CODE=$?
+(cd "./" && echo "${DIFF}" | \
+    exec 'docker' 'run' '--rm' '-t' "--volume=$PWD:${HOOK_EXEC_PATH}" "${DOCKER_PHP_IMAGE}" \
+    'vendor/bin/grumphp' 'git:commit-msg' "--git-user=$GIT_USER" "--git-email=$GIT_EMAIL" "$COMMIT_MSG_FILE" \
+    '--skip-success-output')
 
-rm -f "${DIFF_FILE}" && docker exec -t \
-    -u root -e DIFF_FILE="${DIFF_FILE}" \
-    ${DOCKER_PHP_CONTAINER_ID} sh -c 'rm -f "/tmp/${DIFF_FILE}"'
+GRUMPHP_EXIT_CODE=$?
 
 exit $GRUMPHP_EXIT_CODE
