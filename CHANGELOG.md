@@ -11,6 +11,10 @@ and this project adheres to [Semantic Version](http://semver.org/spec/v2.0.0.htm
 
 ### Fixed
 
+## [4.4.1] - 2021-06-15
+### Fixed
+ * Check if .gitignore exists when executing dockergento create-project, it may not exist.
+
 ## [4.4.0] - 2021-01-04
 ### Added
   * Added documentation about install command including elasticsearch setup.

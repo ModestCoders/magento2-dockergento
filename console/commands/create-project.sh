@@ -54,7 +54,9 @@ ${COMMANDS_DIR}/exec.sh composer create-project --no-install --repository=https:
 echo " > Copying project files into host"
 ${COMMANDS_DIR}/exec.sh sh -c "cat ${CREATE_PROJECT_TMP_DIR}/composer.json > ${COMPOSER_DIR}/composer.json"
 CONTAINER_ID=$(${DOCKER_COMPOSE} ps -q ${SERVICE_PHP})
-docker cp ${CONTAINER_ID}:${WORKDIR_PHP}/${CREATE_PROJECT_TMP_DIR}/.gitignore .gitignore
+if [ -f "${CREATE_PROJECT_TMP_DIR}/.gitignore" ]; then
+  docker cp ${CONTAINER_ID}:${WORKDIR_PHP}/${CREATE_PROJECT_TMP_DIR}/.gitignore .gitignore
+fi
 ${COMMANDS_DIR}/exec.sh sh -c "rm -rf ${CREATE_PROJECT_TMP_DIR}"
 
 echo ""
