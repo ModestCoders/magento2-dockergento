@@ -18,6 +18,7 @@ init_dirs()
     resolve_absolute_dir
     export DOCKERGENTO_DIR="${ABSOLUTE_PATH}"
     export COMMANDS_DIR="${ABSOLUTE_PATH}/console/commands"
+    export CONFIG_DIR="${ABSOLUTE_PATH}/config"
     export TASKS_DIR="${ABSOLUTE_PATH}/console/tasks"
     export PROPERTIES_DIR="${ABSOLUTE_PATH}/console/properties"
 }
