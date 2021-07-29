@@ -18,6 +18,13 @@ if [ "$#" == 0 ] || [ "$1" == "--help" ]; then
     exit 0
 fi
 
+if [[ "$1" == "--container" || "$1" == "-c" ]]; then
+    shift
+    SERVICE_PHP=$1
+    shift
+fi
+
+
 : ${EXEC_OPTIONS:=""}
 
 if [ ${TTY_DISABLE} == true ]; then
