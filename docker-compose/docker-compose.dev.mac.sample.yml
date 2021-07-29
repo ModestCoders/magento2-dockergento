@@ -11,6 +11,17 @@ services:
       - ./composer.lock:/var/www/html/composer.lock:delegated
       # {FILES_IN_GIT}
 
+  phpfpmdebug:
+    volumes:
+      - workspace:/var/www/html
+      - ./app:/var/www/html/app:delegated
+      - ./.git:/var/www/html/.git:delegated
+      - ./config:/var/www/html/config:delegated
+      - ./composer.json:/var/www/html/composer.json:delegated
+      - ./composer.lock:/var/www/html/composer.lock:delegated
+      - ./config/dockergento/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:delegated
+      - ./config/dockergento/usr/local/etc/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:delegated
+
   nginx:
     volumes: *appvolumes-mac
 
@@ -28,6 +39,7 @@ services:
       - SYNC_MAX_INOTIFY_WATCHES=60000
     depends_on:
       - phpfpm
+      - phpfpmdebug
     privileged: true
 
 volumes:
